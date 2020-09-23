@@ -1,0 +1,121 @@
+---
+title: "Homework 1"
+author: "jiaying Ning"
+date: "9/23/2020"
+output: html_document
+---
+
+
+**Problem 1**
+
+load packages
+```{r, echo = F, message = FALSE, warning=FALSE}
+rm(list = ls())
+library(arsenal)
+library(dplyr)
+library(ggplot2)
+```
+
+import data
+```{r, echo = F, message = FALSE, warning=FALSE}
+setwd("/Users/jiayingning/Documents/Columbia\ Fall2020/P8130/Jiaying\ Ning/P8130_jn2761")
+Antibodies<-read.csv("Antibodies.csv")
+```
+
+1) Using the entire sample, provide descriptive statistics for all variables of interest.
+a) Total sample size for each variable (N); Mean/SD, Median/IQR, Min and Max for continuous
+variables; Frequency/Percentages for categorical variables; Number of missing values for each
+variable. (8p)
+b) Generate a his
+togram for the Ig-M values and comment on its shape. (2p)
+
+
+since the only continuous variable is Antibody_Igm. We will be taking the descriptive statistics measure for this continuous variable.
+
+below are its overall summary and desctiptive value table
+```{r Problem 1}
+#overall summary
+summary(Antibodies)
+
+#print out the class table for each variable in the dataset
+t(t(sapply(Antibodies, class)))
+
+#print out the descriptive statistics
+descriptivestats = summary(na.omit(Antibodies$Antibody_IgM))
+descriptivestats
+IQR(na.omit(Antibodies$Antibody_IgM))
+sd(na.omit(Antibodies$Antibody_IgM))
+
+```
+
+From the dataset, I observe that only meaningful variable that is numeric is "Antibody_IgM". Variable "AgeCategory","Smell","Gender" are all factor.
+
+For continuous variable:
+Antibody_Igm has means of `r mean(na.omit(Antibodies$Antibody_IgM))` with standard deviation of `r sd(na.omit(Antibodies$Antibody_IgM))`, median of `r median(na.omit(Antibodies$Antibody_IgM))` and IQR of `r IQR(na.omit(Antibodies$Antibody_IgM))`.Its min is `r min(na.omit(Antibodies$Antibody_IgM))` and max is `r max(na.omit(Antibodies$Antibody_IgM))`
+
+For categorical variable
+the frequency and proportion of agegroup is:
+```{r freq age}
+#frequency for categorical variable
+##frequency of age category
+table(Antibodies$AgeCategory)
+prop.table(table(Antibodies$AgeCategory))
+```
+the frequency and proportion of subject's smell status is:
+```{r freq smell}
+##frequency of smell
+table(Antibodies$Smell)
+prop.table(table(Antibodies$Smell))
+```
+the frequency and proportion of smell is:
+```{r freq gender}
+##frequency of Gender
+table(Antibodies$Gender)
+prop.table(table(Antibodies$Gender))
+```
+
+From the summary table we know that there are 1224 NA values in Antibody_Igm variable. 34 unanswered/other in smell category.
+
+```{r histogram IGM}
+ggplot(data=Antibodies,mapping=aes((Antibody_IgM))) + geom_histogram()
+```
+From the graph showing above, we can see that the distribution is skewing to the right. Most people have low antibody_igm. 
+
+**problem 2**
+
+2) Provide descriptive statistics for all variables, stratified by smell category.
+a) Provide descriptive statistics for all the other variables by the two smell categories (normal vs
+altered) and present them in a tabular form (see example below). Briefly comment on the
+differences observed between the two groups. (6p)
+Hint: tableby() in R can easily generate this, but feel free to create your own table in Word.
+
+```{r table}
+library(dplyr)
+library(furniture)
+
+table1(Antibodies,AgeCategory,Subject,Antibody_IgM,Gender,splitby = "Smell",   row_wise = TRUE)
+
+Antibodies_clear = filter(Antibodies, Smell != "Unanswered/Others")
+table1(Antibodies_clear,AgeCategory,Subject,Antibody_IgM,Gender,splitby = "Smell",   row_wise = TRUE)
+
+
+```
+Overall, more people reported having their smell altered than not. This difference in proportion is true among all age group and gender. 
+
+
+b) Use the Ig-M variable to generate side-by-side histograms and boxplots by smell categories
+```{r side by side histogram and boxplot}
+ggplot(Antibodies_clear,aes(x=Antibody_IgM))+geom_histogram()+facet_grid(~Smell)+theme_bw()
+
+ggplot(Antibodies_clear, aes(x=Smell, y=Antibody_IgM)) + 
+    geom_boxplot()
+
+```
+
+
+
+(normal vs altered). Make sure you label your figures appropriately and briefly discuss the trends
+observed. (4p)
+
+Btoh histogram skewed to the right, with most participants having relatively lower IGM value. However, the variation for altered-smell participants seems to be larger than normal participants. The average of IGM is also higher than altered-smell group. Further more, the altered-smell group seem to have more extremed IGM value than normal group.
+
