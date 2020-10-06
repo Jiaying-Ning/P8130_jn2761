@@ -117,6 +117,15 @@ $$P(X<100.5)=`r 1-pnorm(5.198265)`$$
 3) The 90th quantile of the sampling distribution of the sample mean 𝑋̅. (2.5p)
 
 
+z=1.285
 
+$$X-99.9/(0.73/sqrt(40)) = 1.285$$
+$$x=`r (1.285*(0.73/sqrt(40)))+99.9`$$
 
 4) The cutoff values for the middle 50% of the sampling distribution of the sample mean 𝑋̅. (2.5p)
+
+confidence interval of 50%
+
+$$(x-0.675*(0.73/sqrt(40)),x+0.675*(0.73/sqrt(40)))$$
+
+$$(`r 99.9-0.675*(0.73/sqrt(40))`,`r 99.9+0.675*(0.73/sqrt(40))`)$$
