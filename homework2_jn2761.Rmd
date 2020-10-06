@@ -1,0 +1,122 @@
+---
+title: "homework2_jn2761"
+author: "jiaying Ning"
+date: "10/4/2020"
+output: html_document
+---
+
+### Problem 1 (15p)
+
+A new test is being developed for the detection of carcinoma of the prostate (Foti et al. N Engl. J Med. 1977). When it is tested in a group of 113 patients with prostatic cancer, 79 have a positive diagnosis; in a group of 217 individuals without prostatic cancer, 10 have a positive diagnosis.
+
+**1) Calculate the specificity and sensitivity of the test. (4p)**
+
+- Sensitivity:P(T|D) = `r 79/113` 
+- Specificity：P(TC|DC)  = `r (217-10)/217` 
+
+**2) In another hypothetical scenario, it is planned to use the test to screen a large sample of subjects for prostatic cancer where the test results will be the only data available. Is this information enough to assess the test characteristics, i.e., sensitivity & specificity? Yes, no, what is missing (if the case)? (2p)**
+
+- No, in this case we are missing the number of people who actually have the disease. Then we are not able to calculate its sensitivity and specificity.
+
+**3) In patients with palpable prostatic nodules, the pretest likelihood of prostatic cancer is 50%. The test under these conditions has a sensitivity of 80% and a specificity of 95%.**
+
+a) Calculate the probability of a patient with a palpable prostatic nodule and a positive test result having prostatic cancer. What is the epidemiological term of this probability? (3.5p)
+
+$$P(T|D)=0.8$$
+$$P(D)=0.5$$
+
+$$T(TD) = P(T|D)*P(D) = 0.8*0.5=0.4$$
+- The eqidemiological term for this probability is prevelance?
+
+b) Re-calculate the probability in 2-a), using a pretest likelihood of prostatic cancer of 10%. Compare the two values and comment on their differences. (3.5p)
+
+$$T(TD) = P(T|D)*P(D) = 0.8*0.2=0.16$$
+
+- Even though the probability is low, it does not necessary means the test is not accurate, the population who contain the disease largely influence the magnitude of this probability.
+
+### Problem 2 (10p)
+
+According to the Center for Disease Control (CDC), about 34.5% of the adult US population are prediabetic (National Diabetes Statistics Report, 2020). Suppose we randomly select a group of 50 patients seen at Columbia University Medical Center.
+Calculate the following exact probabilities based on the national statistics:
+
+1. Probability that none of these patients are prediabetic. (2.5p)
+
+ $$P(x=0) = (1-0.345)^{50}= `r (1-0.345)^{50}`$$
+
+2. Probability that less than 10 patients are prediabetic. (2.5p)
+
+$$P(x<10) = 50C10*(0.345)^{10}*(1-0.345)^{40}$$
+$$p(x=x) = (0.345)^x*(1-0.345)^{(50-x)}$$
+
+3. Probability that 34.5% of these patients are prediabetic (round to the nearest integer). (2.5p)
+
+$$34.5*50 = `r 34.5*50`$$
+
+4. Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate. (2.5p)
+
+
+
+## Problem 3 (10p)
+The incidence of uveal melanoma in the US is approximately 5 per million individuals per year, with a significantly higher incidence in non-Hispanic Whites (6.02 per million), when compared to Blacks and Asians: 0.31 and 0.39 per million, respectively.
+a) What is the probability that in NYC (population of 8.3 million reported in 2020), exactly 30 cases occur in a given year? (4p)
+
+$$u = 5*8.3 = 41.5$$
+$$t = 1$$
+so it follows that lambda = 41.5
+let X be the number of uveal melanoma in a given time, now we want to calculate the probability when X=30 in a year.
+we know that by Poisson distribution
+
+$$Pr(X=k)=e^{-u}*u^k/k!$$
+
+$$Pr(x=30) = e^{-41.5} *41.5^{30}/30!= `r exp(-41.5)*41.5^(30)/factorial(30)`$$
+
+b) Compute the same probability in a) by the mentioned racial/ethnic groups and comment on the findings. Demographic data of NYC in 2020: 14.0% Asians, 42.8% non-Hispanic Whites, 24.3% Black. (6p)
+
+- total number of Asian = `r 0.14*8.3` million
+- total number of non-Hispanic Whites = `r 0.428*8.3` million
+- total number of Black. = `r 0.243*8.3`million
+
+average of incidence of uveal melanoma per year for 
+
+- Asian: `r 0.14*8.3*0.39`
+- non-Hispanic Whites: `r 0.428*8.3*6.02`
+- Black: `r 0.243*8.3*0.31`
+
+Let X be the total number of cases in a given time
+Let X1 be number of cases for asian in a given time
+Let X2 be number of cases for non-Hispanic Whites in a given time
+Let X3 be number of cases for Black in a given time
+
+total average = 22.46387 cases for X1+X2+X3 in a given year
+
+
+Pr(X1+X2+X3=30) = $$Pr(X=k)=e^{-22.46387}*22.46387^{30}/30!=`r exp(-22.46387)*22.46387^(30)/factorial(30)`$$
+
+Overall, there is limitation to this result because the sum of proportion of given race does not equal to one (0.811) therefore the probability of getting 30 cases is  meaningful when only taking account of the three races mentioned in the question.
+
+
+
+
+## Problem 4 (10p)
+People with COVID-19 have had a wide range of symptoms, but high temperature is one of the most important indications. Based on current data, the average temperature of patients diagnosed with COVID-19 follow a normal distribution with a mean of 99.9 degrees Fahrenheit and a standard deviation of 0.73 degrees Fahrenheit. Of course, this differs from person to person, based on factors like body weight, height, the weather, age or gender.
+Let 𝑋1,…,𝑋40 be the body temperatures of 40 randomly chosen individuals returning to the Columbia University Medical Center. Calculate the following probabilities:
+1) 𝑃(𝑋̅<98), the probability that the sample mean is less than 98 (average normal temperature). (2.5p)
+
+$$P(X<98) = 98-99.9/(0.73/sqrt(40)) = `r (98-99.9)/(0.73/sqrt(40))`$$
+$$P(X<98)=`r pnorm(-16.46117)`$$
+
+
+2) 𝑃(𝑋̅>100.5), the probability that the sample mean is greater than 100.5 (alarming zone for COVID-19). (2.5p)
+
+$$P(X<100.5) = 100.5-99.9/(0.73/sqrt(40)) = `r (100.5-99.9)/(0.73/sqrt(40))`$$
+$$P(X<100.5)=`r 1-pnorm(5.198265)`$$
+
+
+
+
+3) The 90th quantile of the sampling distribution of the sample mean 𝑋̅. (2.5p)
+
+
+
+
+4) The cutoff values for the middle 50% of the sampling distribution of the sample mean 𝑋̅. (2.5p)
