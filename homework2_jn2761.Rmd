@@ -45,15 +45,20 @@ Calculate the following exact probabilities based on the national statistics:
 
 2. Probability that less than 10 patients are prediabetic. (2.5p)
 
-$$P(x<10) = 50C10*(0.345)^{10}*(1-0.345)^{40}$$
-$$p(x=x) = (0.345)^x*(1-0.345)^{(50-x)}$$
+$$P(x<10) = sum(x[i],i=1,9)50Cx*(0.345)^{x}*(1-0.345)^{50-x}= `r pbinom(9,50,0.345)`$$
+
+
 
 3. Probability that 34.5% of these patients are prediabetic (round to the nearest integer). (2.5p)
 
-$$34.5*50 = `r 34.5*50`$$
+$$ 0.345*50 = `r 0.345*50` $$
+$$P(x=18) = 50C18*(0.345)^{18}*(1-0.345)^{50-18}= `r factorial(50)/(factorial(50-18)*factorial(18))*(0.345)^{18}*(1-0.345)^{50-18}`$$
 
 4. Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate. (2.5p)
 
+When n is large enough，normal idstribution can be sued to evauate binomial probabilities.In this case since we have 50 sample size, n is large enough.
+
+- Pr(17<x<18) = (16.5, 18.5)
 
 
 ## Problem 3 (10p)

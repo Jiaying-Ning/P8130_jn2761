@@ -405,14 +405,18 @@ summary {
 <ol start="2" style="list-style-type: decimal">
 <li>Probability that less than 10 patients are prediabetic. (2.5p)</li>
 </ol>
-<p><span class="math display">\[P(x&lt;10) = 50C10*(0.345)^{10}*(1-0.345)^{40}\]</span> <span class="math display">\[p(x=x) = (0.345)^x*(1-0.345)^{(50-x)}\]</span></p>
+<p><span class="math display">\[P(x&lt;10) = sum(x[i],i=1,9)50Cx*(0.345)^{x}*(1-0.345)^{50-x}= 0.0081532\]</span></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Probability that 34.5% of these patients are prediabetic (round to the nearest integer). (2.5p)</li>
 </ol>
-<p><span class="math display">\[34.5*50 = 1725\]</span></p>
+<p><span class="math display">\[ 0.345*50 = 17.25 \]</span> <span class="math display">\[P(x=18) = 50C18*(0.345)^{18}*(1-0.345)^{50-18}= 0.1140322\]</span></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate. (2.5p)</li>
 </ol>
+<p>When n is large enough，normal idstribution can be sued to evauate binomial probabilities.In this case since we have 50 sample size, n is large enough.</p>
+<ul>
+<li>Pr(17&lt;x&lt;18) = (16.5, 18.5)</li>
+</ul>
 </div>
 <div id="problem-3-10p" class="section level2">
 <h2>Problem 3 (10p)</h2>
