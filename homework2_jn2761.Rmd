@@ -16,23 +16,36 @@ A new test is being developed for the detection of carcinoma of the prostate (Fo
 
 **2) In another hypothetical scenario, it is planned to use the test to screen a large sample of subjects for prostatic cancer where the test results will be the only data available. Is this information enough to assess the test characteristics, i.e., sensitivity & specificity? Yes, no, what is missing (if the case)? (2p)**
 
-- No, in this case we are missing the number of people who actually have the disease. Then we are not able to calculate its sensitivity and specificity.
+- No, in this case we are missing the number of people who actually have the disease(prevalence). Then we are not able to calculate its sensitivity and specificity.
 
 **3) In patients with palpable prostatic nodules, the pretest likelihood of prostatic cancer is 50%. The test under these conditions has a sensitivity of 80% and a specificity of 95%.**
 
 a) Calculate the probability of a patient with a palpable prostatic nodule and a positive test result having prostatic cancer. What is the epidemiological term of this probability? (3.5p)
 
 $$P(T|D)=0.8$$
+$$P(TC|DC)=0.95$$
+$$P(T|DC)=0.05$$
+
+
 $$P(D)=0.5$$
+$$P(T)=P(T|DC)*P(DC)+P(T|D)*P(D)=0.8*0.5+0.05*0.5=0.425$$
 
 $$T(TD) = P(T|D)*P(D) = 0.8*0.5=0.4$$
-- The eqidemiological term for this probability is prevelance?
+
+$$(D|T) = P(TD)/P(T) = =0.4/0.425 = 0.9411765$$
+
+- The eqidemiological term for this probability is predictive positive rate
 
 b) Re-calculate the probability in 2-a), using a pretest likelihood of prostatic cancer of 10%. Compare the two values and comment on their differences. (3.5p)
 
-$$T(TD) = P(T|D)*P(D) = 0.8*0.2=0.16$$
+$$P(D)=0.1$$
+$$P(T)=P(T|DC)*P(DC)+P(T|D)*P(D)=0.05*0.9+0.8*0.1=0.125$$
+$$T(TD) = P(T|D)*P(D) = 0.8*0.1=0.08$$
 
-- Even though the probability is low, it does not necessary means the test is not accurate, the population who contain the disease largely influence the magnitude of this probability.
+$$(D|T) = P(TD)/P(T) = 0.08/0.125 = 0.64$$
+
+
+- Even though the probability is low, it does not necessary means the test is not accurate, the population who might contain the disease(prevelance) largely influence the magnitude of this probability. If only a small chunks of people might contain the disease, the magnitude of this probability goes down.
 
 ### Problem 2 (10p)
 
@@ -58,7 +71,19 @@ $$P(x=18) = 50C18*(0.345)^{18}*(1-0.345)^{50-18}= `r factorial(50)/(factorial(50
 
 When n is large enough，normal idstribution can be sued to evauate binomial probabilities.In this case since we have 50 sample size, n is large enough.
 
-- Pr(17<x<18) = (16.5, 18.5)
+N~(np, sqrt(np(1-p)))
+np=17.25
+sd = 3.361361
+
+N~(17.25,3.361361)
+
+
+ $$1. Pr(-0.5<x<0.5) = 2.484852e-07$$
+  $$2. Pr(x<9.5) = 0.01056611$$
+  $$3. Pr(16.5<x<17.5) = 0.1179243$$
+
+ 
+ 
 
 
 ## Problem 3 (10p)
@@ -87,17 +112,16 @@ average of incidence of uveal melanoma per year for
 - non-Hispanic Whites: `r 0.428*8.3*6.02`
 - Black: `r 0.243*8.3*0.31`
 
-Let X be the total number of cases in a given time
-Let X1 be number of cases for asian in a given time
-Let X2 be number of cases for non-Hispanic Whites in a given time
-Let X3 be number of cases for Black in a given time
-
-total average = 22.46387 cases for X1+X2+X3 in a given year
 
 
-Pr(X1+X2+X3=30) = $$Pr(X=k)=e^{-22.46387}*22.46387^{30}/30!=`r exp(-22.46387)*22.46387^(30)/factorial(30)`$$
 
-Overall, there is limitation to this result because the sum of proportion of given race does not equal to one (0.811) therefore the probability of getting 30 cases is  meaningful when only taking account of the three races mentioned in the question.
+$$Pr(Asian) = e^{-0.45318}*0.45318^{30}/30!=`r exp(-0.45318)*0.45318^(30)/factorial(30)`$$
+
+$$Pr(non-Hispanic Whites) = e^{-21.38545}*21.38545^{30}/30!=`r exp(-21.38545)*21.38545^(30)/factorial(30)`$$
+
+$$Pr(Black) = e^{-0.625239}*0.625239^{30}/30!=`r exp(-0.625239)*0.625239^(30)/factorial(30)`$$
+
+Notebly, the probability to having 30 cases in one year is shockingly low for for asian and balck racial group and much higher for non-Hispanic Whites group. There are many reasons to explain this differences. One of the reason is that the population for asian and black group is much lower, therefore, the prevelance is also lower for these two group.
 
 
 

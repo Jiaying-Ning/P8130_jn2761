@@ -379,20 +379,26 @@ summary {
 </ul>
 <p><strong>2) In another hypothetical scenario, it is planned to use the test to screen a large sample of subjects for prostatic cancer where the test results will be the only data available. Is this information enough to assess the test characteristics, i.e., sensitivity &amp; specificity? Yes, no, what is missing (if the case)? (2p)</strong></p>
 <ul>
-<li>No, in this case we are missing the number of people who actually have the disease. Then we are not able to calculate its sensitivity and specificity.</li>
+<li>No, in this case we are missing the number of people who actually have the disease(prevalence). Then we are not able to calculate its sensitivity and specificity.</li>
 </ul>
 <p><strong>3) In patients with palpable prostatic nodules, the pretest likelihood of prostatic cancer is 50%. The test under these conditions has a sensitivity of 80% and a specificity of 95%.</strong></p>
 <ol style="list-style-type: lower-alpha">
 <li>Calculate the probability of a patient with a palpable prostatic nodule and a positive test result having prostatic cancer. What is the epidemiological term of this probability? (3.5p)</li>
 </ol>
-<p><span class="math display">\[P(T|D)=0.8\]</span> <span class="math display">\[P(D)=0.5\]</span></p>
-<p><span class="math display">\[T(TD) = P(T|D)*P(D) = 0.8*0.5=0.4\]</span> - The eqidemiological term for this probability is prevelance?</p>
+<p><span class="math display">\[P(T|D)=0.8\]</span> <span class="math display">\[P(TC|DC)=0.95\]</span> <span class="math display">\[P(T|DC)=0.05\]</span></p>
+<p><span class="math display">\[P(D)=0.5\]</span> <span class="math display">\[P(T)=P(T|DC)*P(DC)+P(T|D)*P(D)=0.8*0.5+0.05*0.5=0.425\]</span></p>
+<p><span class="math display">\[T(TD) = P(T|D)*P(D) = 0.8*0.5=0.4\]</span></p>
+<p><span class="math display">\[(D|T) = P(TD)/P(T) = =0.4/0.425 = 0.9411765\]</span></p>
+<ul>
+<li>The eqidemiological term for this probability is predictive positive rate</li>
+</ul>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Re-calculate the probability in 2-a), using a pretest likelihood of prostatic cancer of 10%. Compare the two values and comment on their differences. (3.5p)</li>
 </ol>
-<p><span class="math display">\[T(TD) = P(T|D)*P(D) = 0.8*0.2=0.16\]</span></p>
+<p><span class="math display">\[P(D)=0.1\]</span> <span class="math display">\[P(T)=P(T|DC)*P(DC)+P(T|D)*P(D)=0.05*0.9+0.8*0.1=0.125\]</span> <span class="math display">\[T(TD) = P(T|D)*P(D) = 0.8*0.1=0.08\]</span></p>
+<p><span class="math display">\[(D|T) = P(TD)/P(T) = 0.08/0.125 = 0.64\]</span></p>
 <ul>
-<li>Even though the probability is low, it does not necessary means the test is not accurate, the population who contain the disease largely influence the magnitude of this probability.</li>
+<li>Even though the probability is low, it does not necessary means the test is not accurate, the population who might contain the disease(prevelance) largely influence the magnitude of this probability. If only a small chunks of people might contain the disease, the magnitude of this probability goes down.</li>
 </ul>
 </div>
 <div id="problem-2-10p" class="section level3">
@@ -414,9 +420,9 @@ summary {
 <li>Could you use an approximation method to calculate the probabilities above? If yes, calculate the probabilities using approximations and compare to the exact values; otherwise, explain why approximations methods are not appropriate. (2.5p)</li>
 </ol>
 <p>When n is large enough，normal idstribution can be sued to evauate binomial probabilities.In this case since we have 50 sample size, n is large enough.</p>
-<ul>
-<li>Pr(17&lt;x&lt;18) = (16.5, 18.5)</li>
-</ul>
+<p>N~(np, sqrt(np(1-p))) np=17.25 sd = 3.361361</p>
+<p>N~(17.25,3.361361)</p>
+<p><span class="math display">\[1. Pr(-0.5&lt;x&lt;0.5) = 2.484852e-07\]</span> <span class="math display">\[2. Pr(x&lt;9.5) = 0.01056611\]</span> <span class="math display">\[3. Pr(16.5&lt;x&lt;17.5) = 0.1179243\]</span></p>
 </div>
 <div id="problem-3-10p" class="section level2">
 <h2>Problem 3 (10p)</h2>
@@ -438,10 +444,10 @@ summary {
 <li>non-Hispanic Whites: 21.385448</li>
 <li>Black: 0.625239</li>
 </ul>
-<p>Let X be the total number of cases in a given time Let X1 be number of cases for asian in a given time Let X2 be number of cases for non-Hispanic Whites in a given time Let X3 be number of cases for Black in a given time</p>
-<p>total average = 22.46387 cases for X1+X2+X3 in a given year</p>
-<p>Pr(X1+X2+X3=30) = <span class="math display">\[Pr(X=k)=e^{-22.46387}*22.46387^{30}/30!=0.0231709\]</span></p>
-<p>Overall, there is limitation to this result because the sum of proportion of given race does not equal to one (0.811) therefore the probability of getting 30 cases is meaningful when only taking account of the three races mentioned in the question.</p>
+<p><span class="math display">\[Pr(Asian) = e^{-0.45318}*0.45318^{30}/30!=1.168553\times 10^{-43}\]</span></p>
+<p><span class="math display">\[Pr(non-Hispanic Whites) = e^{-21.38545}*21.38545^{30}/30!=0.0155707\]</span></p>
+<p><span class="math display">\[Pr(Black) = e^{-0.625239}*0.625239^{30}/30!=1.5352668\times 10^{-39}\]</span></p>
+<p>Notebly, the probability to having 30 cases in one year is shockingly low for for asian and balck racial group and much higher for non-Hispanic Whites group. There are many reasons to explain this differences. One of the reason is that the population for asian and black group is much lower, therefore, the prevelance is also lower for these two group.</p>
 </div>
 <div id="problem-4-10p" class="section level2">
 <h2>Problem 4 (10p)</h2>
