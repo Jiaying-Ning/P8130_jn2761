@@ -2,7 +2,10 @@
 title: "Homework 1"
 author: "jiaying Ning"
 date: "9/23/2020"
-output: html_document
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 
@@ -105,9 +108,9 @@ Overall, more people reported having their smell altered than not. This differen
 
 b) Use the Ig-M variable to generate side-by-side histograms and boxplots by smell categories
 ```{r side by side histogram and boxplot}
-ggplot(Antibodies_clear,aes(x=Antibody_IgM))+geom_histogram()+facet_grid(~Smell)+theme_bw()
+ggplot(Antibodies_clear,aes(x=Antibody_IgM,fill=Smell))+geom_histogram()
 
-ggplot(Antibodies_clear, aes(x=Smell, y=Antibody_IgM)) + 
+ggplot(Antibodies_clear, aes(x=Smell, y=Antibody_IgM, fill=Smell)) + 
     geom_boxplot()
 
 ```
@@ -118,4 +121,17 @@ ggplot(Antibodies_clear, aes(x=Smell, y=Antibody_IgM)) +
 observed. (4p)
 
 Btoh histogram skewed to the right, with most participants having relatively lower IGM value. However, the variation for altered-smell participants seems to be larger than normal participants. The average of IGM is also higher than altered-smell group. Further more, the altered-smell group seem to have more extremed IGM value than normal group.
+
+
+
+##problem 2
+
+In this article, author discussed a study done by Professor Shoveller who suggested that cats that eats only one meals a day might feel more satisfied and have healthier body than cats who eats several small meals a day. To present this fact, the author compares this result to another more widely accepted theory, which is that “eating small meals several days is better for cats”. Then the author shortly explained how the study set up and lay out the conclusion of the study.
+
+Summary: The main goal of the study is to examine how feeding frequency impact cats’ mental and physical state. Total of 8 cats with similar age are included in the study, all cats are assigned with the same food. The study used a 2X3 replicated incomplete Latin square design. The study does not specify whether cats are randomly assigned to treatment. Some potential bias might include: 
+1.	Even though precise measurement for health and behavior is recorded for each cat, the sample size might still be too small to be generalized to a larger cat population
+2.	Different feeder prepares different type of food for their cat, and the quality of food can have strong impact on a cats’ mental and physical state. Therefore, since all cats are assigned with the same canned food in the study, it is not clear whether the food choice can be a potential confounding variable.  
+
+Journal/Newspaper Reference: Leggate, J. (2020, September 24). You might be feeding your cats wrong, according to a new study. Fox News. https://www.foxnews.com/lifestyle/feeding-cats-wrong-new-study
+Original Study reference: Camara A, Verbrugghe A, Cargo-Froom C, Hogan K, DeVries TJ, et al. (2020) The daytime feeding frequency affects appetite-regulating hormones, amino acids, physical activity, and respiratory quotient, but not energy expenditure, in adult cats fed regimens for 21 days. PLOS ONE 15(9): e0238522.
 
