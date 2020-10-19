@@ -1,0 +1,195 @@
+---
+title: "homework3_jn2761"
+author: "jiaying Ning"
+date: "10/18/2020"
+output: html_document
+---
+```{r}
+rm(list=ls())
+library(readxl)
+library(tidyverse)
+
+```
+
+Import Data 
+
+```{r}
+Exercise_df=
+   read.csv("./data/Exercise.csv")
+```
+
+A study was conducted over a six-month period at a local ambulatory virology clinic. The goal was to test the effect of a structured exercise program for overweight/obese, virally suppressed HIV positive subjects on different parameters. A total of 36 individuals agreed to participate in the intervention group (group 1) and another group of 36 individuals were selected as controls (group 0). The table below shows descriptive statistics: mean(SD), median(Q1, Q3) to summarize the Systolic Blood Pressure (SBP) variable by groups at baseline (pre), at 6 months follow-up (post) and also the absolute changes (Δ=Post-Pre). We want to perform some tests to assess changes in SBP for the two groups (within and between).
+For each question, make sure to state the formulae for hypotheses, test-statistics, decision rules/p-values, and provide interpretations in the context of the problem. Use a type I error of 0.05 for all tests.
+Note: The raw dataset ‘Exercise.csv’ used to generate this table can be found on Canvas.
+
+
+**a) Perform appropriate tests to assess if the Systolic BP at 6 months is significantly different from the baseline values for each of the groups:**
+**i) Intervention group (5p)**
+
+since we are comparing  I will use paired-t test to test the hypothesis.
+
+- Null Hypothesis: There is no difference between baseline values and Systolic BP at 6 month for intervention group.
+- Alternative Hypothesis: There is difference between baseline values and Systolic BP at 6 month for intervention group
+
+
+```{r}
+#creating intervention group dataframe
+Exercise_df_intervention  =
+Exercise_df %>%
+  filter(Group==1) %>%
+  mutate(difference = Systolic_POST - Systolic_PRE)
+
+
+
+```
+
+```{r}
+#perform paired-t.test
+sd_diff<-sd(pull(Exercise_df_intervention,difference))
+test_weight<-mean(pull(Exercise_df_intervention,difference))/(sd_diff/sqrt(length(pull(Exercise_df_intervention,difference))))
+#perform paired-t.test using build-in function
+t.test(pull(Exercise_df_intervention,Systolic_POST), pull(Exercise_df_intervention,Systolic_PRE), paired=T, alternative="less")
+```
+
+Using a type I error of 0.05, since we have p-value of 0.002477 for the current test, we reject the null hypothesis and conclude there is sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
+
+**ii) Control group (5p)**
+
+- Null Hypothesis: There is no difference between baseline values and Systolic BP at 6 month for control group.
+- Alternative Hypothesis: There is difference between baseline values and Systolic BP at 6 month for control group
+
+```{r}
+#creating control group dataframe
+Exercise_df_control  =
+Exercise_df %>%
+  filter(Group==0) %>%
+  mutate(difference = Systolic_POST - Systolic_PRE)
+
+
+```
+
+```{r}
+#perform paired-t.test 
+sd_diff<-sd(pull(Exercise_df_control,difference))
+test_weight<-mean(pull(Exercise_df_control,difference))/(sd_diff/sqrt(length(pull(Exercise_df_control,difference))))
+#perform paired-t.test using build-in function
+t.test(pull(Exercise_df_control,Systolic_POST), pull(Exercise_df_control,Systolic_PRE), paired=T, alternative="less")
+```
+
+Using a type I error of 0.05, since we have p-value of 0.09262 for the current test, we fail to reject the null hypothesis and conclude there is no sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
+
+
+**b) Now perform a test and provide the 95% confidence interval to assess the Systolic BP absolute changes between the two groups. (12p)**
+
+
+
+**c) What are the main underlying assumptions for the tests performed in parts a) and b)? (3p)**
+
+The main assumpetion is taht the observed differences constutue a random sample from a normally distributed population of difference
+
+**i) Use graphical displays to check the normality assumption and discuss the findings. (3p)**
+
+```{r}
+ggplot(Exercise_df, aes(x=Systolic_PRE)) +
+  geom_histogram()
+ggplot(Exercise_df, aes(x=Systolic_POST)) +
+  geom_histogram()
+```
+
+
+**ii) If normality is questionable, how does this affect the tests validity and what are some possible remedies? (2p)**
+
+If normality is questionable, our conclusion made based on p-value will also be questionable, because we ware making our inference based on the assumpetion that the difference follow a normal distribution. Some of the remedies can be to increase sample size, or smaller the p-value so that we are making decision with more cautious.
+
+
+##Question 2
+We have discussed the fact that we are not guaranteed to make the correct decision by the process of hypothesis testing and there is always some level of uncertainty in statistics. The two main errors that we are trying to minimize/control are type I and type II. A type I error occurs when we reject the null hypothesis 𝐻0, when 𝐻0 is true. When we set the significance level at 5%, we are saying that we will allow ourselves to make a type I error less than 5% of the time. In practice we can only calculate this probability using a series of “what if” calculations, because we do not really know the truth.
+In this exercise you learn how to create your own ‘true’ scenario, simulate corresponding data, and quantify the type I error over many repetitions.
+
+*Scenario: The average IQ score of Ivy League colleges is 120. We will assume this to be the null hypothesis (true mean is 120) with a standard deviation of 15 and a significance level of 5%. For the alternative hypothesis we will consider that the ‘true mean is less than 120’.*
+
+Most of the time (95%) when we generate a sample from the underlying true distribution, we should fail to reject the null hypothesis since the null hypothesis is true. Let us test it!
+
+
+
+**a) Generate one random sample of size n=20 from the underlying (null) true distribution. Calculate the test statistic, compare to the critical value and report the conclusion: 1, if you reject 𝐻0 or 0, if you fail to rejected 𝐻0. (5p)
+Hint: use rnorm(20, mean = 120, sd = 15)**
+
+```{r}
+#generae a randome sample with size=20, mean=120, sd=15
+set.seed(2761)
+rs1=rnorm(20, mean = 120, sd = 15)
+
+#calculate the criticle value
+(mean(rs1)-120)/(sd(rs1)/length(rs1))
+```
+
+
+**b) Now generate 100 random samples of size n = 20 from the underlying (null) true distribution and repeat the process in part (a) for each sample (calculate the test statistic, compare to the critical value, and record 1 or 0 based on criteria above). Report the percentage of 1s and 0s respectively across the 100 samples. The percentage of 1s represents the type I error. (7.5p)**
+
+
+```{r}
+#creat two empty list
+  l <- list()
+result=list()
+
+#generae 100 random sample with size=20, mean=120, sd=15 and store them in newly creatd list L, then record the decision of each random sample in list "result"
+set.seed(2761)
+for (i in 1:100){
+l[i] <- list(rnorm(20, mean = 120, sd = 15))
+result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
+}
+
+#convert list into columns
+result_df = c(unlist(result))
+
+#show the frequency of each decision
+table(result_df)
+```
+
+*Thus the percentage of 1s and 0s for the current cases are 0.3 for 1s and 0.7 for 0s. The precentage of type I error is 0.3.*
+
+
+Suggestions: use a for loop to loop over the 100 samples and create a variable using the function ifelse() to keep track of your 1’s and 0’s.
+
+
+**c) Now generate 1000 random samples of size n = 20 from the underlying (null) true distribution, repeat the same process, and report the percentage of 1s and 0s across the 1000 samples. (7.5p)**
+
+
+```{r}
+
+#create two empty list
+  l <- list()
+result=list()
+
+#generae 1000 random sample with size=20, mean=120, sd=15 and store them in newly creatd list L, then record the decision of each random sample in list "result"
+set.seed(2761)
+for (i in 1:1000){
+l[i] <- list(rnorm(20, mean = 120, sd = 15))
+result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
+}
+
+#convert list into columns
+result_df = c(unlist(result))
+
+#show the frequency of each decision
+table(result_df)
+```
+*the percentage of 1s and 0s for the current cases are 0.365 for 1s and 0.635 for 0s. The precentage of type I error is 0.365.*
+
+
+
+**d) Final conclusions: compare the type I errors (percentage of 1s) from part b) and c). How do they compare to the level that we initially imposed (i.e. 0.05)? Comment on your findings. (5p)**
+
+
+*The frequency of Type I error I generated are 0.3 for 100 sample size and 0.365 for 1000 sample size which both are far larger than the 0.05 alpha level we initially imposed. Partially I think this is because the sample size is small (sample size=20) for each sample, if we increase the sample size to, for instance 1000 for each sample, we might be able to generate a better result.*
+
+
+
+
+Notes: For this problem you are encouraged to use R for all calculations/simulations. You can follow the hints or feel free to use other functions – there are several ways to tackle these simulations. You do not need to write the test statistics, critical values, etc., but please include
+themain results (percentage of correct and incorrect decisions) for each part and conclusions in the main homework document. Make sure to comment your R code and don’t forget to set the seed for replicability.
+
+
+
+
