@@ -48,10 +48,10 @@ Exercise_df %>%
 sd_diff<-sd(pull(Exercise_df_intervention,difference))
 test_weight<-mean(pull(Exercise_df_intervention,difference))/(sd_diff/sqrt(length(pull(Exercise_df_intervention,difference))))
 #perform paired-t.test using build-in function
-t.test(pull(Exercise_df_intervention,Systolic_POST), pull(Exercise_df_intervention,Systolic_PRE), paired=T, alternative="less")
+t.test(pull(Exercise_df_intervention,Systolic_POST), pull(Exercise_df_intervention,Systolic_PRE), paired=T, alternative="two.sided")
 ```
 
-Using a type I error of 0.05, since we have p-value of 0.002477 for the current test, we reject the null hypothesis and conclude there is sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
+Using a type I error of 0.05, since we have p-value of 0.004953 for the current test, we reject the null hypothesis and conclude there is sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
 
 **ii) Control group (5p)**
 
@@ -73,15 +73,62 @@ Exercise_df %>%
 sd_diff<-sd(pull(Exercise_df_control,difference))
 test_weight<-mean(pull(Exercise_df_control,difference))/(sd_diff/sqrt(length(pull(Exercise_df_control,difference))))
 #perform paired-t.test using build-in function
-t.test(pull(Exercise_df_control,Systolic_POST), pull(Exercise_df_control,Systolic_PRE), paired=T, alternative="less")
+t.test(pull(Exercise_df_control,Systolic_POST), pull(Exercise_df_control,Systolic_PRE), paired=T, alternative="two.sided")
 ```
 
-Using a type I error of 0.05, since we have p-value of 0.09262 for the current test, we fail to reject the null hypothesis and conclude there is no sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
+Using a type I error of 0.05, since we have p-value of 0.1856 for the current test, we fail to reject the null hypothesis and conclude there is no sufficient evidence to show that there is difference between baseline values and Systolic BP at 6 month for intervention group
 
 
 **b) Now perform a test and provide the 95% confidence interval to assess the Systolic BP absolute changes between the two groups. (12p)**
 
+```{r}
 
+#calculate the absolute difference for both group
+Exercise_df_control  =
+Exercise_df_control %>%
+  mutate(abs_difference = abs(Systolic_POST - Systolic_PRE))
+
+Exercise_df_intervention  =
+Exercise_df_intervention %>%
+  mutate(abs_difference = abs(Systolic_POST - Systolic_PRE))
+```
+
+
+first we need to test for equality of variance
+```{r}
+# Test the equality of variances
+F_stats<-sd(pull(Exercise_df_control,abs_difference))^2/sd(pull(Exercise_df_intervention,abs_difference))^2
+F_stats
+#since we know we have 36 observation, n-1=35 n-2=34
+F_crit<-qf(.975, df1=35, df2=34) 
+F_crit
+
+
+
+
+```
+when comparing the test statistics,Because F_stats < F_crit, we fail to reject H0 and conclude
+that the variances are not significantly different.
+
+Then we can perform the two-sample t-test with equal variances
+
+```{r}
+#X1bar-X2bar
+mean_diff=mean(pull(Exercise_df_intervention,abs_difference))-mean(pull(Exercise_df_control,abs_difference))
+#pooled estimate of the variance
+s_pool = sqrt(((35*sd(pull(Exercise_df_control,abs_difference))^2)+(35*sd(pull(Exercise_df_intervention,abs_difference))^2))/(36+36-2))
+s_pool
+
+t_crit <- qt(0.975,70) 
+t_crit
+
+lower=mean_diff-(t_crit*s_pool*sqrt((1/36)+(1/36)))
+upper=mean_diff+(t_crit*s_pool*sqrt((1/36)+(1/36)))
+lower
+upper
+```
+
+Therefore, the 95% confidence interval to assess the Systolic BP absolute changes is (`r lower`,`r upper`), Since the interval contain 0, we fail to reject a null hypothesis and we do not have sufficient evidence to conclude that there is difference between the absolute changes between the two groups.
 
 **c) What are the main underlying assumptions for the tests performed in parts a) and b)? (3p)**
 
@@ -90,12 +137,44 @@ The main assumpetion is taht the observed differences constutue a random sample 
 **i) Use graphical displays to check the normality assumption and discuss the findings. (3p)**
 
 ```{r}
-ggplot(Exercise_df, aes(x=Systolic_PRE)) +
-  geom_histogram()
-ggplot(Exercise_df, aes(x=Systolic_POST)) +
-  geom_histogram()
+
+knitr::opts_chunk$set(
+  fig.width = 6,
+    fig.asp = .6,
+  out.width = "90%"
+)
+theme_set(theme_minimal()+theme(legend.position = "bottom"))
+
+display_control=ggplot(Exercise_df_control, aes(x=difference)) +
+  geom_histogram(fill="dark blue")+
+  labs(titles = "distribution of difference on control group",
+       x= "pre-post difference",
+       y = "frequency"  )
+display_intervention=ggplot(Exercise_df_intervention, aes(x=difference)) +
+  geom_histogram(fill="salmon") + 
+labs(titles = "distribution of difference on intervention group",
+       x= "pre-post difference",
+       y = "frequency"  )
+
+library(patchwork)
+
+display_control+display_intervention
+
+display_control=ggplot(Exercise_df_control, aes(x=difference)) +
+  geom_density(fill="dark blue",alpha=.5)+
+  labs(titles = "distribution of difference on control group",
+       x= "pre-post difference",
+       y = "density"  )
+display_intervention=ggplot(Exercise_df_intervention, aes(x=difference)) +
+   geom_density(fill="salmon ",alpha=.5) + 
+labs(titles = "distribution of difference on intervention group",
+       x= "pre-post difference",
+       y = "density"  )
+display_control+display_intervention
+
 ```
 
+Overall, the normality assumption seem to hold for control group but not so much for intervention group.
 
 **ii) If normality is questionable, how does this affect the tests validity and what are some possible remedies? (2p)**
 
@@ -122,7 +201,9 @@ rs1=rnorm(20, mean = 120, sd = 15)
 
 #calculate the criticle value
 (mean(rs1)-120)/(sd(rs1)/length(rs1))
+qnorm(0.05, mean = 0, sd = 1)
 ```
+The conclusion is 0 because our test statistic is 2.64 which is larger than -1.64
 
 
 **b) Now generate 100 random samples of size n = 20 from the underlying (null) true distribution and repeat the process in part (a) for each sample (calculate the test statistic, compare to the critical value, and record 1 or 0 based on criteria above). Report the percentage of 1s and 0s respectively across the 100 samples. The percentage of 1s represents the type I error. (7.5p)**
@@ -137,9 +218,11 @@ result=list()
 set.seed(2761)
 for (i in 1:100){
 l[i] <- list(rnorm(20, mean = 120, sd = 15))
-result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
 }
 
+for (i in 1:100){
+result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
+}
 #convert list into columns
 result_df = c(unlist(result))
 
@@ -147,10 +230,17 @@ result_df = c(unlist(result))
 table(result_df)
 ```
 
+```{r}
+test=list()
+for (i in 1:100){
+test[i] = (mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]]))
+}
+```
+
 *Thus the percentage of 1s and 0s for the current cases are 0.3 for 1s and 0.7 for 0s. The precentage of type I error is 0.3.*
 
 
-Suggestions: use a for loop to loop over the 100 samples and create a variable using the function ifelse() to keep track of your 1’s and 0’s.
+```{estions: use a for loop to loop over the 100 samples and create a variable using the function ifelse() to keep track of your 1’s and 0’s.
 
 
 **c) Now generate 1000 random samples of size n = 20 from the underlying (null) true distribution, repeat the same process, and report the percentage of 1s and 0s across the 1000 samples. (7.5p)**
@@ -166,7 +256,7 @@ result=list()
 set.seed(2761)
 for (i in 1:1000){
 l[i] <- list(rnorm(20, mean = 120, sd = 15))
-result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
+result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < (-1.645),1,0)
 }
 
 #convert list into columns
