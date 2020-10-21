@@ -11,6 +11,9 @@ library(tidyverse)
 
 ```
 
+
+## Problem 1
+
 Import Data 
 
 ```{r}
@@ -132,7 +135,7 @@ Therefore, the 95% confidence interval to assess the Systolic BP absolute change
 
 **c) What are the main underlying assumptions for the tests performed in parts a) and b)? (3p)**
 
-The main assumpetion is that the observed differences constutue a random sample from a normally distributed population of difference
+The main assumpetion is that the the observed differences constutue a random sample from a normally distributed population of difference
 
 **i) Use graphical displays to check the normality assumption and discuss the findings. (3p)**
 
@@ -178,7 +181,7 @@ Overall, the normality assumption seem to hold for control group but not so much
 
 **ii) If normality is questionable, how does this affect the tests validity and what are some possible remedies? (2p)**
 
-If normality is questionable, our conclusion made based on p-value will also be questionable, because we ware making our inference based on the assumpetion that the difference follow a normal distribution. Some of the remedies can be to increase sample size, or smaller the p-value so that we are making decision with more cautious.
+If normality is questionable, our conclusion made based on p-value will also be questionable, because we ware making our inference based on the assumpetion that the difference follow a normal distribution. Some of the remedies can be to increase sample size, because even if the populaiton distribution is not normal, when the sample size is big enough,the sampling distribution will be approximately normal. Also, we can use a more conservative p-value so that we are more cautious about the conclusion we made.
 
 
 ##Question 2
