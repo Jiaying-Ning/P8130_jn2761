@@ -1,0 +1,650 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={homework3\_jn2761},
+            pdfauthor={jiaying Ning},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{homework3\_jn2761}
+\author{jiaying Ning}
+\date{10/18/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{())}
+\KeywordTok{library}\NormalTok{(readxl)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages ---------------------------------------------------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.3     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\hypertarget{problem-1}{%
+\subsubsection{Problem 1}\label{problem-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Import Data }
+\NormalTok{Exercise_df=}
+\StringTok{   }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"./data/Exercise.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A study was conducted over a six-month period at a local ambulatory
+virology clinic. The goal was to test the effect of a structured
+exercise program for overweight/obese, virally suppressed HIV positive
+subjects on different parameters. A total of 36 individuals agreed to
+participate in the intervention group (group 1) and another group of 36
+individuals were selected as controls (group 0). The table below shows
+descriptive statistics: mean(SD), median(Q1, Q3) to summarize the
+Systolic Blood Pressure (SBP) variable by groups at baseline (pre), at 6
+months follow-up (post) and also the absolute changes (Δ=Post-Pre). We
+want to perform some tests to assess changes in SBP for the two groups
+(within and between). For each question, make sure to state the formulae
+for hypotheses, test-statistics, decision rules/p-values, and provide
+interpretations in the context of the problem. Use a type I error of
+0.05 for all tests. Note: The raw dataset `Exercise.csv' used to
+generate this table can be found on Canvas.
+
+\textbf{a) Perform appropriate tests to assess if the Systolic BP at 6
+months is significantly different from the baseline values for each of
+the groups:} \textbf{i) Intervention group (5p)}
+
+since we are comparing I will use paired-t test to test the hypothesis.
+
+\begin{itemize}
+\tightlist
+\item
+  Null Hypothesis: There is no difference between baseline values and
+  Systolic BP at 6 month for intervention group.
+\item
+  Alternative Hypothesis: There is difference between baseline values
+  and Systolic BP at 6 month for intervention group
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#creating intervention group dataframe}
+\NormalTok{Exercise_df_intervention  =}
+\NormalTok{Exercise_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Group}\OperatorTok{==}\DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{difference =}\NormalTok{ Systolic_POST }\OperatorTok{-}\StringTok{ }\NormalTok{Systolic_PRE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#perform paired-t.test}
+\NormalTok{sd_diff<-}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,difference))}
+\NormalTok{test_weight<-}\KeywordTok{mean}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,difference))}\OperatorTok{/}\NormalTok{(sd_diff}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,difference))))}
+\CommentTok{#perform paired-t.test using build-in function}
+\KeywordTok{t.test}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,Systolic_POST), }\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,Systolic_PRE), }\DataTypeTok{paired=}\NormalTok{T, }\DataTypeTok{alternative=}\StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Paired t-test
+## 
+## data:  pull(Exercise_df_intervention, Systolic_POST) and pull(Exercise_df_intervention, Systolic_PRE)
+## t = -2.9996, df = 35, p-value = 0.004953
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -14.392386  -2.774281
+## sample estimates:
+## mean of the differences 
+##               -8.583333
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Using a type I error of 0.05, since we have p-value of 0.004953 for
+  the current test, we reject the null hypothesis and conclude there is
+  sufficient evidence to show that there is difference between baseline
+  values and Systolic BP at 6 month for intervention group
+\end{itemize}
+
+\textbf{ii) Control group (5p)}
+
+\begin{itemize}
+\tightlist
+\item
+  Null Hypothesis: There is no difference between baseline values and
+  Systolic BP at 6 month for control group.
+\item
+  Alternative Hypothesis: There is difference between baseline values
+  and Systolic BP at 6 month for control group
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#creating control group dataframe}
+\NormalTok{Exercise_df_control  =}
+\NormalTok{Exercise_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Group}\OperatorTok{==}\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{difference =}\NormalTok{ Systolic_POST }\OperatorTok{-}\StringTok{ }\NormalTok{Systolic_PRE)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#perform paired-t.test }
+\NormalTok{sd_diff<-}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,difference))}
+\NormalTok{test_weight<-}\KeywordTok{mean}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,difference))}\OperatorTok{/}\NormalTok{(sd_diff}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\KeywordTok{length}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,difference))))}
+\CommentTok{#perform paired-t.test using build-in function}
+\KeywordTok{t.test}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,Systolic_POST), }\KeywordTok{pull}\NormalTok{(Exercise_df_control,Systolic_PRE), }\DataTypeTok{paired=}\NormalTok{T, }\DataTypeTok{alternative=}\StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Paired t-test
+## 
+## data:  pull(Exercise_df_control, Systolic_POST) and pull(Exercise_df_control, Systolic_PRE)
+## t = -1.3502, df = 35, p-value = 0.1856
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -8.345373  1.678706
+## sample estimates:
+## mean of the differences 
+##               -3.333333
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Using a type I error of 0.05, since we have p-value of 0.1856 for the
+  current test, we fail to reject the null hypothesis and conclude there
+  is no sufficient evidence to show that there is difference between
+  baseline values and Systolic BP at 6 month for intervention group
+\end{itemize}
+
+\textbf{b) Now perform a test and provide the 95\% confidence interval
+to assess the Systolic BP absolute changes between the two groups.
+(12p)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#calculate the absolute difference for both group}
+\NormalTok{Exercise_df_control  =}
+\NormalTok{Exercise_df_control }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{abs_difference =} \KeywordTok{abs}\NormalTok{(Systolic_POST }\OperatorTok{-}\StringTok{ }\NormalTok{Systolic_PRE))}
+
+\NormalTok{Exercise_df_intervention  =}
+\NormalTok{Exercise_df_intervention }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{abs_difference =} \KeywordTok{abs}\NormalTok{(Systolic_POST }\OperatorTok{-}\StringTok{ }\NormalTok{Systolic_PRE))}
+\end{Highlighting}
+\end{Shaded}
+
+first we need to test for equality of variance
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Test the equality of variances}
+\NormalTok{F_stats<-}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,abs_difference))}\OperatorTok{^}\DecValTok{2}\OperatorTok{/}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,abs_difference))}\OperatorTok{^}\DecValTok{2}
+\NormalTok{F_stats}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6239293
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#since we know we have 36 observation, n-1=35 n-2=34}
+\NormalTok{F_crit<-}\KeywordTok{qf}\NormalTok{(.}\DecValTok{975}\NormalTok{, }\DataTypeTok{df1=}\DecValTok{35}\NormalTok{, }\DataTypeTok{df2=}\DecValTok{34}\NormalTok{) }
+\NormalTok{F_crit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.974435
+\end{verbatim}
+
+\begin{itemize}
+\item
+  when comparing the test statistics,Because F\_stats:0.6239293
+  \textless{} F\_crit:1.9744352, we fail to reject H0 and conclude that
+  the variances are not significantly different.
+\item
+  Then we can perform the two-sample t-test with equal variances
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#X1bar-X2bar}
+\NormalTok{mean_diff=}\KeywordTok{mean}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,abs_difference))}\OperatorTok{-}\KeywordTok{mean}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,abs_difference))}
+\CommentTok{#pooled estimate of the variance}
+\NormalTok{s_pool =}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(((}\DecValTok{35}\OperatorTok{*}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_control,abs_difference))}\OperatorTok{^}\DecValTok{2}\NormalTok{)}\OperatorTok{+}\NormalTok{(}\DecValTok{35}\OperatorTok{*}\KeywordTok{sd}\NormalTok{(}\KeywordTok{pull}\NormalTok{(Exercise_df_intervention,abs_difference))}\OperatorTok{^}\DecValTok{2}\NormalTok{))}\OperatorTok{/}\NormalTok{(}\DecValTok{36}\OperatorTok{+}\DecValTok{36-2}\NormalTok{))}
+\NormalTok{s_pool}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10.46231
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{t_crit <-}\StringTok{ }\KeywordTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{,}\DecValTok{70}\NormalTok{) }
+\NormalTok{t_crit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.994437
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lower=mean_diff}\OperatorTok{-}\NormalTok{(t_crit}\OperatorTok{*}\NormalTok{s_pool}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{((}\DecValTok{1}\OperatorTok{/}\DecValTok{36}\NormalTok{)}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{36}\NormalTok{)))}
+\NormalTok{upper=mean_diff}\OperatorTok{+}\NormalTok{(t_crit}\OperatorTok{*}\NormalTok{s_pool}\OperatorTok{*}\KeywordTok{sqrt}\NormalTok{((}\DecValTok{1}\OperatorTok{/}\DecValTok{36}\NormalTok{)}\OperatorTok{+}\NormalTok{(}\DecValTok{1}\OperatorTok{/}\DecValTok{36}\NormalTok{)))}
+\NormalTok{lower}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.723818
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{upper}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 8.112706
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Therefore, the 95\% confidence interval to assess the Systolic BP
+  absolute changes is (-1.7238175,8.1127064), Since the interval contain
+  0, we fail to reject a null hypothesis and we do not have sufficient
+  evidence to conclude that there is difference in the absolute changes
+  between the two groups.
+\end{itemize}
+
+\textbf{c) What are the main underlying assumptions for the tests
+performed in parts a) and b)? (3p)}
+
+\begin{itemize}
+\tightlist
+\item
+  The main assumpetion is that the the observed differences constutue a
+  random sample from a normally distributed population of difference
+\end{itemize}
+
+\textbf{i) Use graphical displays to check the normality assumption and
+discuss the findings. (3p)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{set}\NormalTok{(}
+  \DataTypeTok{fig.width =} \DecValTok{6}\NormalTok{,}
+    \DataTypeTok{fig.asp =} \FloatTok{.6}\NormalTok{,}
+  \DataTypeTok{out.width =} \StringTok{"90%"}
+\NormalTok{)}
+\KeywordTok{theme_set}\NormalTok{(}\KeywordTok{theme_minimal}\NormalTok{()}\OperatorTok{+}\KeywordTok{theme}\NormalTok{(}\DataTypeTok{legend.position =} \StringTok{"bottom"}\NormalTok{))}
+
+\NormalTok{display_control=}\KeywordTok{ggplot}\NormalTok{(Exercise_df_control, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{difference)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"dark blue"}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{titles =} \StringTok{"distribution of difference on control group"}\NormalTok{,}
+       \DataTypeTok{x=} \StringTok{"pre-post difference"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"frequency"}\NormalTok{  )}
+\NormalTok{display_intervention=}\KeywordTok{ggplot}\NormalTok{(Exercise_df_intervention, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{difference)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"salmon"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{labs}\NormalTok{(}\DataTypeTok{titles =} \StringTok{"distribution of difference on intervention group"}\NormalTok{,}
+       \DataTypeTok{x=} \StringTok{"pre-post difference"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"frequency"}\NormalTok{  )}
+
+\KeywordTok{library}\NormalTok{(patchwork)}
+
+\NormalTok{display_control}\OperatorTok{+}\NormalTok{display_intervention}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\includegraphics{homework3_jn2761_files/figure-latex/unnamed-chunk-10-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{display_control=}\KeywordTok{ggplot}\NormalTok{(Exercise_df_control, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{difference)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"dark blue"}\NormalTok{,}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{5}\NormalTok{)}\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{titles =} \StringTok{"distribution of difference on control group"}\NormalTok{,}
+       \DataTypeTok{x=} \StringTok{"pre-post difference"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"density"}\NormalTok{  )}
+\NormalTok{display_intervention=}\KeywordTok{ggplot}\NormalTok{(Exercise_df_intervention, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x=}\NormalTok{difference)) }\OperatorTok{+}
+\StringTok{   }\KeywordTok{geom_density}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"salmon "}\NormalTok{,}\DataTypeTok{alpha=}\NormalTok{.}\DecValTok{5}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\KeywordTok{labs}\NormalTok{(}\DataTypeTok{titles =} \StringTok{"distribution of difference on intervention group"}\NormalTok{,}
+       \DataTypeTok{x=} \StringTok{"pre-post difference"}\NormalTok{,}
+       \DataTypeTok{y =} \StringTok{"density"}\NormalTok{  )}
+\NormalTok{display_control}\OperatorTok{+}\NormalTok{display_intervention}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{homework3_jn2761_files/figure-latex/unnamed-chunk-10-2.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  by looking at the two ggplot, the normality assumption seem to hold
+  for control group but not so much for intervention group.(seems like
+  there are two major peak in the distribution of difference in
+  intervention group)
+\end{itemize}
+
+\textbf{ii) If normality is questionable, how does this affect the tests
+validity and what are some possible remedies? (2p)}
+
+\begin{itemize}
+\tightlist
+\item
+  If normality is questionable, our conclusion made based on p-value
+  will also be questionable, because we ware making our inference based
+  on the assumpetion that the difference follow a normal distribution.
+  Some of the remedies can be to increase sample size, because even if
+  the populaiton distribution is not normal, when the sample size is big
+  enough,the sampling distribution will be approximately normal. Also,
+  we can use a more conservative p-value so that we are more cautious
+  about the conclusion we made.
+\end{itemize}
+
+\hypertarget{problem-2}{%
+\subsubsection{Problem 2}\label{problem-2}}
+
+We have discussed the fact that we are not guaranteed to make the
+correct decision by the process of hypothesis testing and there is
+always some level of uncertainty in statistics. The two main errors that
+we are trying to minimize/control are type I and type II. A type I error
+occurs when we reject the null hypothesis 𝐻0, when 𝐻0 is true. When we
+set the significance level at 5\%, we are saying that we will allow
+ourselves to make a type I error less than 5\% of the time. In practice
+we can only calculate this probability using a series of ``what if''
+calculations, because we do not really know the truth. In this exercise
+you learn how to create your own `true' scenario, simulate corresponding
+data, and quantify the type I error over many repetitions.
+
+\emph{Scenario: The average IQ score of Ivy League colleges is 120. We
+will assume this to be the null hypothesis (true mean is 120) with a
+standard deviation of 15 and a significance level of 5\%. For the
+alternative hypothesis we will consider that the `true mean is less than
+120'.}
+
+Most of the time (95\%) when we generate a sample from the underlying
+true distribution, we should fail to reject the null hypothesis since
+the null hypothesis is true. Let us test it!
+
+\textbf{a) Generate one random sample of size n=20 from the underlying
+(null) true distribution. Calculate the test statistic, compare to the
+critical value and report the conclusion: 1, if you reject 𝐻0 or 0, if
+you fail to rejected 𝐻0. (5p) Hint: use rnorm(20, mean = 120, sd = 15)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#generae a randome sample with size=20, mean=120, sd=15}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2761}\NormalTok{)}
+\NormalTok{rs1=}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{120}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{15}\NormalTok{)}
+
+\CommentTok{#calculate the criticle value}
+\NormalTok{(}\KeywordTok{mean}\NormalTok{(rs1)}\OperatorTok{-}\DecValTok{120}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{15}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{20}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.6303571
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qnorm}\NormalTok{(}\FloatTok{0.05}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -1.644854
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  The conclusion is 0 since our test statistic is 0.63 which is larger
+  than -1.64, and we fail to reject the H0.
+\end{itemize}
+
+\textbf{b) Now generate 100 random samples of size n = 20 from the
+underlying (null) true distribution and repeat the process in part (a)
+for each sample (calculate the test statistic, compare to the critical
+value, and record 1 or 0 based on criteria above). Report the percentage
+of 1s and 0s respectively across the 100 samples. The percentage of 1s
+represents the type I error. (7.5p)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#creat two empty list}
+\NormalTok{  l <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{result=}\KeywordTok{list}\NormalTok{()}
+
+\CommentTok{#generae 100 random sample with size=20, mean=120, sd=15 and store them in newly creatd list L, then record the decision of each random sample in list "result"}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2761}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{l[i] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{120}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{15}\NormalTok{))}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{)\{}
+\NormalTok{result[i] =}\StringTok{ }\KeywordTok{ifelse}\NormalTok{((}\KeywordTok{mean}\NormalTok{(l[[i]])}\OperatorTok{-}\DecValTok{120}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{15}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{20}\NormalTok{)) }\OperatorTok{<}\StringTok{ }\FloatTok{-1.645}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{#convert list into columns}
+\NormalTok{result_df =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(result))}
+
+\CommentTok{#show the frequency of each decision}
+\KeywordTok{table}\NormalTok{(result_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## result_df
+##  0  1 
+## 97  3
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  the percentage of 1s and 0s for the current cases with 100 sample size
+  are 0.03 for 1s and 0.97 for 0s. The precentage of type I error is
+  0.03 in the current cause.
+\end{itemize}
+
+\textbf{c) Now generate 1000 random samples of size n = 20 from the
+underlying (null) true distribution, repeat the same process, and report
+the percentage of 1s and 0s across the 1000 samples. (7.5p)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#create two empty list}
+\NormalTok{  l <-}\StringTok{ }\KeywordTok{list}\NormalTok{()}
+\NormalTok{result=}\KeywordTok{list}\NormalTok{()}
+
+\CommentTok{#generae 1000 random sample with size=20, mean=120, sd=15 and store them in newly creatd list L, then record the decision of each random sample in list "result"}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{2761}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{1000}\NormalTok{)\{}
+\NormalTok{l[i] <-}\StringTok{ }\KeywordTok{list}\NormalTok{(}\KeywordTok{rnorm}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{120}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{15}\NormalTok{))}
+\NormalTok{result[i] =}\StringTok{ }\KeywordTok{ifelse}\NormalTok{((}\KeywordTok{mean}\NormalTok{(l[[i]])}\OperatorTok{-}\DecValTok{120}\NormalTok{)}\OperatorTok{/}\NormalTok{(}\DecValTok{15}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(}\DecValTok{20}\NormalTok{)) }\OperatorTok{<}\StringTok{ }\NormalTok{(}\OperatorTok{-}\FloatTok{1.645}\NormalTok{),}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{)}
+\NormalTok{\}}
+
+\CommentTok{#convert list into columns}
+\NormalTok{result_df =}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{unlist}\NormalTok{(result))}
+
+\CommentTok{#show the frequency of each decision}
+\KeywordTok{table}\NormalTok{(result_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## result_df
+##   0   1 
+## 947  53
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  the percentage of 1s and 0s for the current cases are 0.053 for 1s and
+  0.947 for 0s. The precentage of type I error is 0.053 in the current
+  cases.*
+\end{itemize}
+
+\textbf{d) Final conclusions: compare the type I errors (percentage of
+1s) from part b) and c). How do they compare to the level that we
+initially imposed (i.e.~0.05)? Comment on your findings. (5p)}
+
+\begin{itemize}
+\tightlist
+\item
+  The frequency of Type I error I generated are 0.03 for 100 sample size
+  and 0.053 for 1000 sample size. The type I error approches to the
+  initially imposed type I error as we increase the sample size. From
+  this obervation, my insight is that we need to be extra cautous when
+  making inference for smaller sample size. Because when we are making
+  inference we are assuming the underlying distribution is normal, but
+  there are many natural variation that can confound the result when the
+  sample size is small, however if the sample size is big enough, we can
+  be more confidence when making inferenece.
+\end{itemize}
+
+Notes: For this problem you are encouraged to use R for all
+calculations/simulations. You can follow the hints or feel free to use
+other functions -- there are several ways to tackle these simulations.
+You do not need to write the test statistics, critical values, etc., but
+please include themain results (percentage of correct and incorrect
+decisions) for each part and conclusions in the main homework document.
+Make sure to comment your R code and don't forget to set the seed for
+replicability.
+
+\end{document}
