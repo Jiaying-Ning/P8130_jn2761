@@ -132,7 +132,7 @@ Therefore, the 95% confidence interval to assess the Systolic BP absolute change
 
 **c) What are the main underlying assumptions for the tests performed in parts a) and b)? (3p)**
 
-The main assumpetion is taht the observed differences constutue a random sample from a normally distributed population of difference
+The main assumpetion is that the observed differences constutue a random sample from a normally distributed population of difference
 
 **i) Use graphical displays to check the normality assumption and discuss the findings. (3p)**
 
@@ -200,10 +200,10 @@ set.seed(2761)
 rs1=rnorm(20, mean = 120, sd = 15)
 
 #calculate the criticle value
-(mean(rs1)-120)/(sd(rs1)/length(rs1))
+(mean(rs1)-120)/(15/sqrt(20))
 qnorm(0.05, mean = 0, sd = 1)
 ```
-The conclusion is 0 because our test statistic is 2.64 which is larger than -1.64
+The conclusion is 0 because our test statistic is 0.63 which is larger than -1.64
 
 
 **b) Now generate 100 random samples of size n = 20 from the underlying (null) true distribution and repeat the process in part (a) for each sample (calculate the test statistic, compare to the critical value, and record 1 or 0 based on criteria above). Report the percentage of 1s and 0s respectively across the 100 samples. The percentage of 1s represents the type I error. (7.5p)**
@@ -221,7 +221,7 @@ l[i] <- list(rnorm(20, mean = 120, sd = 15))
 }
 
 for (i in 1:100){
-result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < -1.645,1,0)
+result[i] = ifelse((mean(l[[i]])-120)/(15/sqrt(20)) < -1.645,1,0)
 }
 #convert list into columns
 result_df = c(unlist(result))
@@ -230,17 +230,11 @@ result_df = c(unlist(result))
 table(result_df)
 ```
 
-```{r}
-test=list()
-for (i in 1:100){
-test[i] = (mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]]))
-}
-```
 
-*Thus the percentage of 1s and 0s for the current cases are 0.3 for 1s and 0.7 for 0s. The precentage of type I error is 0.3.*
+*Thus the percentage of 1s and 0s for the current cases are 0.03 for 1s and 0.97 for 0s. The precentage of type I error is 0.03 in the current cause.*
 
 
-```{estions: use a for loop to loop over the 100 samples and create a variable using the function ifelse() to keep track of your 1’s and 0’s.
+
 
 
 **c) Now generate 1000 random samples of size n = 20 from the underlying (null) true distribution, repeat the same process, and report the percentage of 1s and 0s across the 1000 samples. (7.5p)**
@@ -256,7 +250,7 @@ result=list()
 set.seed(2761)
 for (i in 1:1000){
 l[i] <- list(rnorm(20, mean = 120, sd = 15))
-result[i] = ifelse((mean(l[[i]])-120)/(sd(l[[i]])/length(l[[i]])) < (-1.645),1,0)
+result[i] = ifelse((mean(l[[i]])-120)/(15/sqrt(20)) < (-1.645),1,0)
 }
 
 #convert list into columns
@@ -265,14 +259,14 @@ result_df = c(unlist(result))
 #show the frequency of each decision
 table(result_df)
 ```
-*the percentage of 1s and 0s for the current cases are 0.365 for 1s and 0.635 for 0s. The precentage of type I error is 0.365.*
+*the percentage of 1s and 0s for the current cases are 0.053 for 1s and 0.947 for 0s. The precentage of type I error is 0.053 in the current cases.*
 
 
 
 **d) Final conclusions: compare the type I errors (percentage of 1s) from part b) and c). How do they compare to the level that we initially imposed (i.e. 0.05)? Comment on your findings. (5p)**
 
 
-*The frequency of Type I error I generated are 0.3 for 100 sample size and 0.365 for 1000 sample size which both are far larger than the 0.05 alpha level we initially imposed. Partially I think this is because the sample size is small (sample size=20) for each sample, if we increase the sample size to, for instance 1000 for each sample, we might be able to generate a better result.*
+*The frequency of Type I error I generated are 0.03 for 100 sample size and 0.053 for 1000 sample size. The type I error approches to the initially imposed type I error as we increase the sample size. From this obervation, my insight is that we need to be extra cautous when making inference for smaller sample size. Because when we are making inference we are assuming the underlying distribution is normal, but there are many natural variation that can confound the result when the sample size is small, however if the sample size is big enough, we can be more confidence when making inferenece.*
 
 
 
