@@ -1,0 +1,120 @@
+---
+title: "Midterm_jn2761"
+author: "jiaying Ning"
+date: "10/29/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r}
+library(dplyr)
+library(arsenal)
+```
+
+## problem 3
+
+
+1) select a random sample (with replacement) of 16 men from this distribution of 2742 normally distribut4ed observations and calculate the corresponding mean
+```{r}
+set.seed(8130)
+population = rnorm(2742, mean = 174, sd = 7.7)
+sample = sample (population, size=16, replace =F)
+sample_mean = mean(sample)
+```
+The mean for the sample of 16 men is `r sample_mean`
+
+
+2. Repeat the step 1 50 times and plot the distribution of 50 sample means.
+
+```{r}
+  l <- list()
+result=list()
+set.seed(8130)
+
+for (i in 1:50){
+l[i] <- list(sample (population, size=16, replace =F))
+result[i] = list(mean(l[[i]]))
+}
+result_df = c(unlist(result))
+result_df
+```
+
+```{r}
+hist(result_df)
+```
+
+3. *Comment: the shape of the distribution in part 2 is approximatly normal with most of the value gathered around 174, the true population mean. According to central limited theorem, since our underlying population distribution is normal, even though n <30, then the shape of the samping distribution is also approximately normal.*
+
+
+## problem 5
+```{r}
+#Import Data 
+vote_df=
+   read.csv("./data/VoteNY2018.csv")
+```
+
+```{r}
+voted_recode=
+vote_df %>%
+  mutate(
+        VOTED=recode(VOTED,`1`="Did not vote",`2`="Voted", `96`="Refused", `97`="Don't know", `98` ="No Response", `99` ="Not in universe"),
+        VOTED_SIMPLE = ifelse(VOTED=="Voted","YES","NO"),
+         SEX = recode(SEX, `1`= "Male",`2`="Female",`9`="NIU"),
+        RACESIMPLE=recode(RACESIMPLE, `1`	= "White", `2`= "Black", `3`= "American Indian or Aleut or Eskimo", `4`= "Asian or Pacific Islander", `5` =	"More than one race", `9`	= "Blank"),
+        EDUSIMPLE=recode( EDUSIMPLE, `0` = "No school", `1`= "Some school but no diploma", `2` =	"High school graduate or GED", `3`	= "Some college but no degree", `4`	= "Associate degree",`5`= "Bachelors degree", `6`	= "Masters degree",`7` = "Professional or Doctoral degree")) %>%
+  
+          relocate(VOTED,VOTED_SIMPLE,AGE,SEX,RACESIMPLE,EDUSIMPLE)
+
+
+```
+```{r}
+summary(vote_df$AGE)
+summary(vote_df$VOTED)
+```
+
+I did not use the coding for AGE since there is no value of 0,99, and 99+ in the current data for age. The minimum data is 18 and the maximum data is 85.
+
+Create a summary table of age, sex, race and education level by voting status (yes – no)
+in the 2018 elections. Carefully choose the summary statistics to report based on the variable type.
+```{r}
+ tble = tableby( VOTED_SIMPLE ~ AGE+SEX+RACESIMPLE+EDUSIMPLE, data=voted_recode)
+summary(tble, title = "Descriptive Statistics: voting in 2018",  text=T)
+
+```
+3. Using a 5% significance level, evaluate the associations between: voting status and race. You need to state the following: hypotheses, table of expected values, statistical test you chose and why, test statistic, critical value, decision rule and interpretation in the context of the problem.
+
+To test the association between two categorical variable, we will construct a contingency table, calculated the expected cell counts and the chi-square statistics testing for independence. 
+
+- H0: There is no association between voting status and race, voting status and race are independent
+- H1: There is association between voting status and race, voting status and race are dependent
+```{r}
+table2 = table(voted_recode$RACESIMPLE,voted_recode$VOTED_SIMPLE)
+```
+
+```{r}
+
+table2
+```
+Here is the table for expected value
+```{r}
+#expected_value
+
+library(data.table)
+expected_value = data.table(voted= c(883*12/2647,883*158/2647,883*354/2647,883*30/2647,883*2093/2647)
+,not_voted=c(1764*12/2647,1764*158/2647,1764*354/2647,1764*30/2647.1764*2093/2647))
+expected_value
+```
+
+$$ X^2 = sum of( (original value-expected value)^2/expected value )$$
+$$df= (row-1) * (columb-1)=4$$
+
+```{r}
+chisq.test(table2)
+qchisq(0.95,4)
+```
+
+
+- X-squared = 26.082, df = 4, p-value = 3.047e-05
+- Critical value: qchisq(0.95,4) = 9.487729
+- since Test Value = 26.082 > critical value = 9.487729 We reject the null hypothesis and conclude that the proportions of voting status are different among racial groups at alpha level = 0.05

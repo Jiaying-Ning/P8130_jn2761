@@ -1,0 +1,23 @@
+---
+title: "homework5_jn2761"
+author: "jiaying Ning"
+date: "11/19/2020"
+output: html_document
+---
+
+
+```{r}
+rm(list=ls())
+library(readxl)
+library(tidyverse)
+
+
+```
+
+
+
+```{r}
+#Import Data 
+antibodies_df=
+   read.csv("./data/Antibodies.csv")
+```

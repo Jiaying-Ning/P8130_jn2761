@@ -3,8 +3,8 @@ title: "homework3_jn2761"
 author: "jiaying Ning"
 date: "10/18/2020"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 ---
 ```{r}
 rm(list=ls())
@@ -272,7 +272,7 @@ table(result_df)
 **d) Final conclusions: compare the type I errors (percentage of 1s) from part b) and c). How do they compare to the level that we initially imposed (i.e. 0.05)? Comment on your findings. (5p)**
 
 
-- The frequency of Type I error I generated are 0.03 for 100 sample size and 0.053 for 1000 sample size. The type I error approches to the initially imposed type I error as we increase the sample size. From this obervation, my insight is that we need to be extra cautous when making inference for smaller sample size. Because when we are making inference we are assuming the underlying distribution is normal, but there are many natural variation that can confound the result when the sample size is small, however if the sample size is big enough, we can be more confidence when making inferenece.
+- The frequency of Type I error I generated are 0.03 for 100 sample size and 0.053 for 1000 sample size. The type I error approches to the initially imposed type I error as we increase the sample size. From this obervation, my insight is that we need to be extra cautious when making inference for smaller sample size. Because when we are making inference we are assuming the underlying distribution is normal, but there are many natural variation that can confound the result when the sample size is small, however if the sample size is big enough, we can be more confidence when making inferenece.
 
 
 
