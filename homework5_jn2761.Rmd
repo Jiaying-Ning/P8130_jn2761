@@ -2,7 +2,9 @@
 title: "homework5_jn2761"
 author: "jiaying Ning"
 date: "11/19/2020"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 
@@ -10,14 +12,175 @@ output: html_document
 rm(list=ls())
 library(readxl)
 library(tidyverse)
+library(broom)
+library(dplyr)
 
 
+```
+
+## Problem 1
+
+```{r}
+#Import Data 
+antibodies_df=
+   read.csv("./data/Antibodies.csv") %>%
+  na.omit()
+```
+
+```{r}
+Normal = antibodies_df %>%
+  filter(Smell == "Normal")
+
+ALtered = antibodies_df %>%
+  filter(Smell == "Altered")
+```
+
+
+#### non-parametric test to assess and comment on the difference in Ig-M levels between the two groups
+
+**The non parametric test we will be using is the Non-parametric Wilcoxon-Rank Sum test**
+
+**Hypothesis**
+
+  - H0:the median Ig_M levels are equal for both altered smell group and Normal smell group
+
+  - H1:the median Ig_M levels are not equal for both altered smell group and Normal smell group
+
+
+**calculations**
+```{r}
+wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0)
+```
+```{r}
+test_stats_df=tidy(wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0))
+```
+
+
+**Test Stats**
+
+  - W=`r test_stats_df$statistic`
+  - p-value=`r test_stats_df$p.value`
+  
+**Conclusion**
+
+  - Using a 0.05 significance level, since we have p-value less than 0.05,, we reject H0 and conclude that the Normal smell and Altered Smell have significantly different Ig-M Level.
+  
+  
+
+
+## Problem 3
+
+### part 1
+
+```{r}
+GPA_df=
+   read.csv("./data/GPA.csv")
 ```
 
 
 
 ```{r}
-#Import Data 
-antibodies_df=
-   read.csv("./data/Antibodies.csv")
+GPA_df %>% 
+  ggplot(aes(ACT, GPA)) + geom_point(color='black')  +
+  geom_smooth(method='lm', se=TRUE,color="pink") 
 ```
+
+
+
+**Hypothesis**
+
+  - H0:There is no linear association exists between student’s ACT score (X) and GPA at the end of the freshman year (Y).beta1=0
+
+  - H1:There is linear association exists between student’s ACT score (X) and GPA at the end of the freshman year (Y).beta1!=0
+
+
+**Calculations**
+
+For the current test, we use the t-test to test whether or not the slope between ACT and GPA is significantly different from 0, if it is, we conclude that there is a linear association exists. 
+
+$$ (beta1-0)/se(beta1) $$
+
+```{r}
+GPAlm=lm(GPA~ACT,data=GPA_df)
+
+```
+
+
+```{r}
+summary(GPAlm)
+tidy(GPAlm)
+glance(GPAlm)
+```
+
+**Decision**
+
+```{r}
+qt(0.975,118)
+```
+
+  - **Critical Value**: t~(118,0.975) = 1.980272
+  - **Decision Rule**:
+    + Reject H0: if |t| > t(118,0.975)
+    + Fail to reject H0:|t| < t(118,0.975)
+
+**Conclusion**
+
+  - For the current data, we have test stats of 3.040	 and p-value of 2.916604e-03 for slope. Since t_stats:3.040 > critical value1.980272, we reject the null and conlcude that there is significant linear association exists between student’s ACT score (X) and GPA at the end of the freshman year (Y).
+
+### part 2
+
+$$ GPA(estimated) = 2.11405 + 0.03883ACT $$
+
+### part 3
+
+**95% Confidence Interval for slope**
+
+$$slope ± t(118,0.975)*se(beta1)$$
+
+Calculation by r
+```{r}
+confint(GPAlm,level=0.95)
+```
+
+0.03883 ± 1.980272*0.01277302	 =  (0.01353595,0.06412405) 
+
+
+
+
+**Conclusion**
+
+  - With 95% confidence, we estimate that the mean GPA increases by somewhere between 0.01353595 and 0.06412405 for each additional point in ACT.
+
+  - the interval does not conclude 0. The director of admissions might be interested in whether the confidence interval includes zero because they are interested in learning about whether a higher ACT scores can be a potential predictor for higher gpa, in this case, it can be a potential predictor.
+
+### part 4
+
+```{r}
+new_data <- data.frame(ACT=c(28))
+predict(GPAlm, newdata=new_data, interval="confidence", level=0.95)
+```
+
+  - **Interpretation**: For people who have ACT score = 28, the expected mean GPA score can vary between 3.061384 and 3.341033. 
+
+
+### part 5
+
+
+```{r}
+
+predict(GPAlm, newdata=new_data, interval="prediction", level=0.95)
+```
+
+  - **Interpretation**: For a new person with ACT score of 28, her or his mean GPA score can vary between 1.959355 to 4.443063 
+
+
+### part 6
+
+  - prediction interval is wider than the confidence interval because the prediction interval need to account for an additional error term whereas confidence interval don't.
+  - For confidence interval, we are using expected mean GPA for all ACT that equal to 28, but in prediciton, we are looking at the range for new people with ACT of 28, so prediciton have more error involved.
+
+
+
+
+
+
