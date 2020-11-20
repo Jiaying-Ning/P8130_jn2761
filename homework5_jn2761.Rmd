@@ -9,12 +9,12 @@ output:
 
 
 ```{r}
+#Loading Packages
 rm(list=ls())
 library(readxl)
 library(tidyverse)
 library(broom)
 library(dplyr)
-
 
 ```
 
@@ -36,9 +36,10 @@ ALtered = antibodies_df %>%
 ```
 
 
-#### non-parametric test to assess and comment on the difference in Ig-M levels between the two groups
+### non-parametric test for assessing the difference in Ig-M levels between the two groups
 
-**The non parametric test we will be using is the Non-parametric Wilcoxon-Rank Sum test**
+
+  - The non parametric test I will be using is the Non-parametric Wilcoxon-Rank Sum test
 
 **Hypothesis**
 
@@ -63,7 +64,7 @@ test_stats_df=tidy(wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0))
   
 **Conclusion**
 
-  - Using a 0.05 significance level, since we have p-value less than 0.05,, we reject H0 and conclude that the Normal smell and Altered Smell have significantly different Ig-M Level.
+  - Using a 0.05 significance level, since we have p-value less than 0.05,, we reject H0 and conclude that the Normal smell and Altered Smell have significantly different median Ig_M levels.
   
   
 
@@ -109,7 +110,6 @@ GPAlm=lm(GPA~ACT,data=GPA_df)
 ```{r}
 summary(GPAlm)
 tidy(GPAlm)
-glance(GPAlm)
 ```
 
 **Decision**
@@ -135,7 +135,7 @@ $$ GPA(estimated) = 2.11405 + 0.03883ACT $$
 
 **95% Confidence Interval for slope**
 
-$$slope ± t(118,0.975)*se(beta1)$$
+$$slope +(-) t(118,0.975)*se(beta1)$$
 
 Calculation by r
 ```{r}
@@ -178,9 +178,4 @@ predict(GPAlm, newdata=new_data, interval="prediction", level=0.95)
 
   - prediction interval is wider than the confidence interval because the prediction interval need to account for an additional error term whereas confidence interval don't.
   - For confidence interval, we are using expected mean GPA for all ACT that equal to 28, but in prediciton, we are looking at the range for new people with ACT of 28, so prediciton have more error involved.
-
-
-
-
-
 
