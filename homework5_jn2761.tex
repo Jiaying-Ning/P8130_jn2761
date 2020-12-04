@@ -1,0 +1,474 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={homework5\_jn2761},
+            pdfauthor={jiaying Ning},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+
+\title{homework5\_jn2761}
+\author{jiaying Ning}
+\date{11/19/2020}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Loading Packages}
+\KeywordTok{rm}\NormalTok{(}\DataTypeTok{list=}\KeywordTok{ls}\NormalTok{())}
+\KeywordTok{library}\NormalTok{(readxl)}
+\KeywordTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.2     v purrr   0.3.4
+## v tibble  3.0.4     v dplyr   1.0.2
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.3.1     v forcats 0.5.0
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(broom)}
+\KeywordTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{problem-1}{%
+\subsection{Problem 1}\label{problem-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Import Data }
+\NormalTok{antibodies_df=}
+\StringTok{   }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"./data/Antibodies.csv"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{na.omit}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Normal =}\StringTok{ }\NormalTok{antibodies_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Smell }\OperatorTok{==}\StringTok{ "Normal"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Antibody_IgM =} \KeywordTok{sort}\NormalTok{(Antibody_IgM, }\DataTypeTok{decreasing =} \OtherTok{FALSE}\NormalTok{))}
+
+\NormalTok{ALtered =}\StringTok{ }\NormalTok{antibodies_df }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{filter}\NormalTok{(Smell }\OperatorTok{==}\StringTok{ "Altered"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{Antibody_IgM =} \KeywordTok{sort}\NormalTok{(Antibody_IgM, }\DataTypeTok{decreasing =} \OtherTok{FALSE}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{non-parametric-test-for-assessing-the-difference-in-ig-m-levels-between-the-two-groups}{%
+\subsubsection{non-parametric test for assessing the difference in Ig-M
+levels between the two
+groups}\label{non-parametric-test-for-assessing-the-difference-in-ig-m-levels-between-the-two-groups}}
+
+\begin{itemize}
+\tightlist
+\item
+  The non parametric test I will be using is the Non-parametric
+  Wilcoxon-Rank Sum test，Since there are ties in our dataset, we will
+  need to use adjust term in our calculation.
+\end{itemize}
+
+\textbf{Hypothesis}
+
+\begin{itemize}
+\item
+  H0:the median Ig\_M levels are equal for both altered smell group and
+  Normal smell group
+\item
+  H1:the median Ig\_M levels are not equal for both altered smell group
+  and Normal smell group
+\end{itemize}
+
+\textbf{calculations}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res=}\KeywordTok{wilcox.test}\NormalTok{(Normal}\OperatorTok{$}\NormalTok{Antibody_IgM, ALtered}\OperatorTok{$}\NormalTok{Antibody_IgM, }\DataTypeTok{mu=}\DecValTok{0}\NormalTok{)}
+\NormalTok{test_stats_df=}\KeywordTok{tidy}\NormalTok{(}\KeywordTok{wilcox.test}\NormalTok{(Normal}\OperatorTok{$}\NormalTok{Antibody_IgM, ALtered}\OperatorTok{$}\NormalTok{Antibody_IgM, }\DataTypeTok{mu=}\DecValTok{0}\NormalTok{))}
+\NormalTok{res}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Wilcoxon rank sum test with continuity correction
+## 
+## data:  Normal$Antibody_IgM and ALtered$Antibody_IgM
+## W = 5836, p-value = 0.01406
+## alternative hypothesis: true location shift is not equal to 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{w=res}\OperatorTok{$}\NormalTok{statistic}\OperatorTok{+}\StringTok{ }\DecValTok{81}\OperatorTok{*}\NormalTok{(}\DecValTok{81}\OperatorTok{+}\DecValTok{1}\NormalTok{)}\OperatorTok{/}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Test Stats}
+
+\begin{itemize}
+\tightlist
+\item
+  W=9157
+\item
+  p-value=0.0140605
+\end{itemize}
+
+\textbf{Conclusion}
+
+\begin{itemize}
+\tightlist
+\item
+  Using a 0.05 significance level, since we have p-value less than
+  0.05,, we reject H0 and conclude that the Normal smell and Altered
+  Smell have significantly different median Ig\_M levels.
+\end{itemize}
+
+\hypertarget{problem-3}{%
+\subsection{Problem 3}\label{problem-3}}
+
+\hypertarget{part-1}{%
+\subsubsection{part 1}\label{part-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GPA_df=}
+\StringTok{   }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"./data/GPA.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GPA_df }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(ACT, GPA)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{color=}\StringTok{'black'}\NormalTok{)  }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method=}\StringTok{'lm'}\NormalTok{, }\DataTypeTok{se=}\OtherTok{TRUE}\NormalTok{,}\DataTypeTok{color=}\StringTok{"pink"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{homework5_jn2761_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\textbf{Hypothesis}
+
+\begin{itemize}
+\item
+  H0:There is no linear association exists between student's ACT score
+  (X) and GPA at the end of the freshman year (Y).beta1=0
+\item
+  H1:There is linear association exists between student's ACT score (X)
+  and GPA at the end of the freshman year (Y).beta1!=0
+\end{itemize}
+
+\textbf{Calculations}
+
+For the current test, we use the t-test to test whether or not the slope
+between ACT and GPA is significantly different from 0, if it is, we
+conclude that there is a linear association exists.
+
+\[ (beta1-0)/se(beta1) \]
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GPAlm=}\KeywordTok{lm}\NormalTok{(GPA}\OperatorTok{~}\NormalTok{ACT,}\DataTypeTok{data=}\NormalTok{GPA_df)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(GPAlm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = GPA ~ ACT, data = GPA_df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -2.74004 -0.33827  0.04062  0.44064  1.22737 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  2.11405    0.32089   6.588  1.3e-09 ***
+## ACT          0.03883    0.01277   3.040  0.00292 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.6231 on 118 degrees of freedom
+## Multiple R-squared:  0.07262,    Adjusted R-squared:  0.06476 
+## F-statistic:  9.24 on 1 and 118 DF,  p-value: 0.002917
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(GPAlm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 5
+##   term        estimate std.error statistic       p.value
+##   <chr>          <dbl>     <dbl>     <dbl>         <dbl>
+## 1 (Intercept)   2.11      0.321       6.59 0.00000000130
+## 2 ACT           0.0388    0.0128      3.04 0.00292
+\end{verbatim}
+
+\textbf{Decision}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{qt}\NormalTok{(}\FloatTok{0.975}\NormalTok{,}\DecValTok{118}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.980272
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Critical Value}: t\textasciitilde{}(118,0.975) = 1.980272
+\item
+  \textbf{Decision Rule}:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Reject H0: if \textbar{}t\textbar{} \textgreater{} t(118,0.975)
+  \item
+    Fail to reject H0:\textbar{}t\textbar{} \textless{} t(118,0.975)
+  \end{itemize}
+\end{itemize}
+
+\textbf{Conclusion}
+
+\begin{itemize}
+\tightlist
+\item
+  For the current data, we have test stats of 3.040 and p-value of
+  2.916604e-03 for slope. Since t\_stats:3.040 \textgreater{} critical
+  value1.980272, we reject the null and conlcude that there is
+  significant linear association exists between student's ACT score (X)
+  and GPA at the end of the freshman year (Y).
+\end{itemize}
+
+\hypertarget{part-2}{%
+\subsubsection{part 2}\label{part-2}}
+
+\[ GPA(estimated) = 2.11405 + 0.03883ACT \]
+
+\hypertarget{part-3}{%
+\subsubsection{part 3}\label{part-3}}
+
+\textbf{95\% Confidence Interval for slope}
+
+\[slope +(-) t(118,0.975)*se(beta1)\]
+
+Calculation by r
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(GPAlm,}\DataTypeTok{level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                  2.5 %     97.5 %
+## (Intercept) 1.47859015 2.74950842
+## ACT         0.01353307 0.06412118
+\end{verbatim}
+
+0.03883 ± 1.980272*0.01277302 = (0.01353595,0.06412405)
+
+\textbf{Conclusion}
+
+\begin{itemize}
+\item
+  With 95\% confidence, we estimate that the mean GPA increases by
+  somewhere between 0.01353595 and 0.06412405 for each additional point
+  in ACT.
+\item
+  the interval does not conclude 0. The director of admissions might be
+  interested in whether the confidence interval includes zero because
+  they are interested in learning about whether a higher ACT scores can
+  be a potential predictor for higher gpa, in this case, it can be a
+  potential predictor.
+\end{itemize}
+
+\hypertarget{part-4}{%
+\subsubsection{part 4}\label{part-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{new_data <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{ACT=}\KeywordTok{c}\NormalTok{(}\DecValTok{28}\NormalTok{))}
+\KeywordTok{predict}\NormalTok{(GPAlm, }\DataTypeTok{newdata=}\NormalTok{new_data, }\DataTypeTok{interval=}\StringTok{"confidence"}\NormalTok{, }\DataTypeTok{level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        fit      lwr      upr
+## 1 3.201209 3.061384 3.341033
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Interpretation}: For people who have ACT score = 28, the
+  expected mean GPA score can vary between 3.061384 and 3.341033.
+\end{itemize}
+
+\hypertarget{part-5}{%
+\subsubsection{part 5}\label{part-5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(GPAlm, }\DataTypeTok{newdata=}\NormalTok{new_data, }\DataTypeTok{interval=}\StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level=}\FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        fit      lwr      upr
+## 1 3.201209 1.959355 4.443063
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Interpretation}: For a new person with ACT score of 28, her or
+  his mean GPA score can vary between 1.959355 to 4.443063
+\end{itemize}
+
+\hypertarget{part-6}{%
+\subsubsection{part 6}\label{part-6}}
+
+\begin{itemize}
+\tightlist
+\item
+  prediction interval is wider than the confidence interval because the
+  prediction interval need to account for an additional error term
+  whereas confidence interval don't.
+\item
+  For confidence interval, we are using expected mean GPA for all ACT
+  that equal to 28, but in prediciton, we are looking at the range for
+  new people with ACT of 28, so prediciton have more error involved.
+\end{itemize}
+
+\end{document}

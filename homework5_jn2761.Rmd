@@ -24,22 +24,30 @@ library(dplyr)
 #Import Data 
 antibodies_df=
    read.csv("./data/Antibodies.csv") %>%
-  na.omit()
+  na.omit() 
+
 ```
+
 
 ```{r}
+
+
 Normal = antibodies_df %>%
-  filter(Smell == "Normal")
+  filter(Smell == "Normal")%>%
+  mutate(Antibody_IgM = sort(Antibody_IgM, decreasing = FALSE))
 
 ALtered = antibodies_df %>%
-  filter(Smell == "Altered")
+  filter(Smell == "Altered") %>%
+  mutate(Antibody_IgM = sort(Antibody_IgM, decreasing = FALSE))
+
 ```
+
 
 
 ### non-parametric test for assessing the difference in Ig-M levels between the two groups
 
 
-  - The non parametric test I will be using is the Non-parametric Wilcoxon-Rank Sum test
+  - The non parametric test I will be using is the Non-parametric Wilcoxon-Rank Sum test，Since there are ties in our dataset, we will need to use adjust term in our calculation.
 
 **Hypothesis**
 
@@ -50,16 +58,19 @@ ALtered = antibodies_df %>%
 
 **calculations**
 ```{r}
-wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0)
+res=wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0)
+test_stats_df=tidy(wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0))
+res
 ```
 ```{r}
-test_stats_df=tidy(wilcox.test(Normal$Antibody_IgM, ALtered$Antibody_IgM, mu=0))
+w=res$statistic+ 81*(81+1)/2
+
 ```
 
 
 **Test Stats**
 
-  - W=`r test_stats_df$statistic`
+  - W=`r w`
   - p-value=`r test_stats_df$p.value`
   
 **Conclusion**

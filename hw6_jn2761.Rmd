@@ -1,0 +1,200 @@
+---
+title: "HW6_jn2761"
+author: "jiaying Ning"
+date: "12/4/2020"
+output: html_document
+---
+```{r}
+#Loading Packages
+rm(list=ls())
+library(readxl)
+library(tidyverse)
+library(broom)
+library(dplyr)
+
+```
+
+## Problem 1
+
+### import data
+```{r}
+#Import Data 
+patient_df=
+   read.csv("./data/PatSatisfaction.csv") 
+
+```
+
+- Outcome :'patient’s satisfaction score'
+- Predictor: 'age', 'severity of illness', 'anxiety level'
+
+
+#### 1. Create a correlation matrix for all variables and interpret your findings. Focus on the correlation values between each predictor and the outcome of interest. (2p)
+
+
+```{r}
+cor(patient_df)
+```
+- In here we see that all predictors have negetive negative correlaiton with the outcome, which means that as our age or severity of illness or anxiety level increase, our satisfaction leveldecrease. Among all, predictor 'age' seem to have the stronges correlation with outcome 'satisfaction' comparing to other facotr, and Severity of illness seem to have the weakest correlation with outcome. 
+
+
+
+#### 2. Fit a multiple regression model including all three predictors and test whether at least one of these variables is significant. State the hypotheses, test-statistic, decision rule and conclusion. (3p)
+
+- **Hypothesis:** 
+  + **H0:**  beta1 = beta2 = beta3 = 0 all slopes are not significant predictor for the outcome
+  + **HA:** at lease one slope is a significant predictor for the outcome, at least one beta != 0
+
+- **Fit the model**
+
+```{r}
+Lin_Patient<-lm(Safisfaction~Age + Severity+Anxiety,data=patient_df)
+summary(Lin_Patient)
+
+```
+- **Test Statistics**:In the graph above we see that F-test is performed on multiple linear model
+
+  + We  observe the summary table, we have F value of `30.05` with degree of freedom `3` and `42`
+  
+  + F-stats formula $$(SSR/3)/SSE/n-2$$ 
+
+
+- **Decision Rule**
+  + F_Test:
+    - With alpha=0.05, Critical value F is F(3,42) = `r qf(.95, df1=3, df2=42)`
+      - Reject H0: F value > F(3,42) = ``r qf(.95, df1=3, df2=42)``
+      - Fail to reject H0: F value < F(3,42) = ``r qf(.95, df1=3, df2=42)``
+        - At 5%significant level, F=`30.05` > ``r qf(.95, df1=3, df2=42)``, we reject the null
+  
+- **conclusion**
+  + Since we have a F-stats > ``r qf(.95, df1=3, df2=42)`` , we reject the null and conlcude that there is at least one significant predictor in the multiple regression model.
+  
+
+
+
+#### 3. Show the regression results for all estimated slope coefficients with 95% CIs. Interpret the coefficient and 95% CI associated with ‘severity of illness’. (5p)
+
+```{r}
+confint(Lin_Patient,level=0.95)
+```
+
+**Interpretation**: With 95% confidence, holding all other variables constant, we estimate that for every one level severity of illness addition, the mean satisfaction level will vary between -1.434831 and 0.5508228. Since the interval contain 0, we say  severity of illness is not a significant predictor of satisfaction.
+
+#### 4. Obtain an interval estimate for a new patient’s satisfaction with the following characteristics: Age=35, Severity=42, Anxiety=2.1. Interpret the interval. (2p)
+
+
+```{r}
+new_data <- data.frame(Age=c(35),Severity=c(42),Anxiety=c(2.1))
+predict(Lin_Patient, newdata=new_data, interval="prediction", level=0.95)
+
+```
+- **Interpretation**: For a new person who are 25 years old, having illness severity level of 42, anxiety level of 2.1, his or her expected mean satisfaction level can vary between 50.06237 and 93.30426 
+
+#### 5. 
+
+##### a) Test whether ‘anxiety level’ can be dropped from the regression model, given the other two covariates are retained. State the hypotheses, test-statistic, decision rule and conclusion. (1.5p) 
+
+
+- **Hypothesis:** 
+  + **H0: ** Anxiety level is not an significant predictor of the multiple linear model, Beta(anxiety)=0
+  + **HA: ** Anxiety level is an significant predictor of the multiple linear model, Beta(anxiety)!=0
+  
+```{r}
+No_anxiety<-lm(Safisfaction~Age + Severity,data=patient_df)
+anova(No_anxiety,Lin_Patient)
+```
+
+
+- **Test Statistics**:
+  + F value:`3.5997`，with p-value  `0.06468`
+  + Formula $$(SSEsmall - SSElarge)/(dfsmall-dflarge)/(SSElarge/dflarge)$$
+
+- **Decision Rule**
+  + With alpha=0.05, Critical value for predictor is: F~(1,42) = ``r qf(.95, df1=1, df2=42)``
+    - Reject H0: if at least one predictor’s F value > F~(1,42) = ``r qf(.95, df1=1, df2=42)``
+    - Fail to reject H0:F < F~(1,42) =  ``r qf(.95, df1=1, df2=42)``
+      - At 5 %significant level,F value for anxiety|=``3.5997`` < ``r qf(.95, df1=1, df2=42)`` , we fail to reject the null
+
+- **conclusion**
+  + Since we have a F-test < ``r qf(.95, df1=1, df2=42)`` ,we fail to reject the null and conlcude that the larger model is not superior, thus we should drop Anxiety as predictor.
+  
+  
+  
+##### b) How are R2/R2-adjusted impacted by the action that you took in part 5-a)? (1.5p)
+
+```{r}
+summary(Lin_Patient)
+
+
+No_anxiety<-lm(Safisfaction~Age + Severity,data=patient_df)
+summary(No_anxiety)
+```
+
+From the summary table we see that both R-squared and Adjusted R-squred is larger in models that have anxiety as predictor. R-squred is  0.6822 for models contain all factor and 0.655 for models contains all but Anxiety level. The Adjusted R-squred is 0.6595 for models contain all factor and 0.6389 for models contains all but Anxiety level.R-squred will always increase by each predictor added. Adjusted R-squred however, increase if the added predictor improves the model more than what is expected by chance alone.
+
+
+## Problem 2
+
+### import data
+```{r}
+#Import Data 
+Estradl_df=
+   read.csv("./data/ESTRADL.csv") 
+
+```
+
+#### 1. Is there a crude association between BMI and serum estradiol?
+
+##### a) Generate a scatter plot with the overlaid regression line. Comment. (2.5p)
+
+```{r}
+ggplot(Estradl_df, aes(x=Estradl, y=BMI)) +         
+  geom_point(size=2) +                                                                     
+  geom_smooth(method="lm")+
+    labs( x="Estradiol hormonal serum levels")
+```
+
+We can see that the Estradiol and BMI are negatively correlated, and we see that the the line seem to be influenced by some extreme high estradiol levels, and we can also see that there are an increase of uncertainty as Estradio hormonal serum level increase. Overall, I do not think the current model is a good fitted model for our data.
+
+##### b) Provide the summary regression output and comment on the nature of the relationship (i.e., sign, magnitude, significance). (2.5p)
+
+
+
+```{r}
+summary(lm(data=Estradl_df,BMI~Estradl))
+```
+From both the graph and the summary output we can see that there is a negative association between BMI and Estradiol hormonal serum levels, however,according to the individual t-test, Estradiol hormonal serum levels is not a significant predictor of BMI, and the low R squred also shows that the model does not explain much of the variability of data.
+
+
+#### 2. How does the relationship between BMI and serum estradiol change after controlling for all the other risk factors listed above? Provide the summary regression output and comment on the relationships observed for each of the predictors. (5p)
+
+```{r}
+summary(lm(data=Estradl_df,BMI~Estradl+Ethnic+Entage+Numchild+Agemenar))
+
+```
+The relation between  BMI and Estradiol hormonal serum levels is weaker after controlling for other factor, above all, all factors are not significant except for ethnicity. Regardless of their significance, number of children and Estradiol hormonal serum level is shown to have negative association with BMI whereas Ethinicity age and age when menstrual periods began is positively assoicated with BMI.
+
+#### 3. Now focus only the relationship between BMI and serum estradiol by ethnicity. Is there any evidence that these relationships vary for African American and Caucasian women?
+
+
+##### a) Use graphical displays and numerical summaries to sustain your conclusion. (2.5p)
+```{r}
+theme_set(theme_classic())                                                      
+
+ggplot(Estradl_df, aes(x=Estradl, y=BMI, colour=factor(Ethnic))) +         
+  geom_point(size=2) +                                                                     
+  geom_smooth(method="lm", se=F,                                          
+              aes(group = factor(Ethnic),                                  
+              color = factor(Ethnic))) +                                        
+  scale_color_manual(name="Ethnicity", labels = c("Caucasian", "African American,"), values = c("darkorange2", "deepskyblue3")) 
+```
+
+##### b) Based on your response in part 3-a), take additional steps to quantify the relationship between BMI and serum estradiol by ethnicity. Comment on your findings. (2.5p)
+
+```{r}
+Estradl_LM<-lm(BMI ~ Estradl*Ethnic, data=Estradl_df)
+summary(Estradl_LM)
+```
+though there seems to be a slight interaction effect showing by looking at the ggplot, At 5% significance level, the current summary output shows no significance in interaction effect between ethnicity and serum estradiol (with p-value = `0.0748`). Therefore, there is no sufficient evidence that the relationship between BMI and serum estradiiol vary for African American and Caucasian women. 
+
+
+
